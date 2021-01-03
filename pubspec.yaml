@@ -1,0 +1,21 @@
+name: moneys
+description: A set of classes useful for managing money, for save in a database and retrieve from it.
+version: 0.1.0-nullsafety.1
+homepage: https://marco87.dev
+
+environment:
+  sdk: ">=2.12.0-29.10.beta <3.0.0"
+  flutter: ">=1.24.0-10.2.pre <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  intl: ^0.17.0-nullsafety.2
+  pedantic: ^1.10.0-nullsafety.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
