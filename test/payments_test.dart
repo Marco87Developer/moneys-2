@@ -8,7 +8,7 @@ void main() {
   final Payment payment1 = Payment(
     dateTime: DateTime(2020, 2, 27, 13, 27),
     id: 'unique id',
-    incomeOrExpense: IncomeOrExpense.income,
+    incomeOrExpense: ExpenseOrIncome.income,
     method: PaymentMethod.gPay,
     value: Money(
       amount: 10000.5,
@@ -18,7 +18,7 @@ void main() {
   final Payment payment2 = Payment(
     dateTime: DateTime(2020, 2, 15, 15, 30),
     id: 'unique id',
-    incomeOrExpense: IncomeOrExpense.income,
+    incomeOrExpense: ExpenseOrIncome.income,
     method: PaymentMethod.debitCard,
     value: Money(
       amount: 15000,
@@ -28,7 +28,7 @@ void main() {
   final Payment payment3 = Payment(
     dateTime: DateTime(2020, 3, 15, 15, 30),
     id: 'unique id',
-    incomeOrExpense: IncomeOrExpense.expense,
+    incomeOrExpense: ExpenseOrIncome.expense,
     method: PaymentMethod.debitCard,
     value: Money(
       amount: 15000,
@@ -38,7 +38,7 @@ void main() {
   final Payment payment4 = Payment(
     dateTime: DateTime(2020, 1, 10),
     id: 'unique id',
-    incomeOrExpense: IncomeOrExpense.expense,
+    incomeOrExpense: ExpenseOrIncome.expense,
     method: PaymentMethod.gPay,
     value: Money(
       amount: 5000,
@@ -163,23 +163,23 @@ void main() {
     payments..add(payment1)..add(payment2)..add(payment3);
 
     expect(
-      payments.total(incomeOrExpense: IncomeOrExpense.income),
+      payments.total(incomeOrExpense: ExpenseOrIncome.income),
       Money(amount: 25000.5, currency: Currency.eur),
     );
     expect(
-      payments.total(incomeOrExpense: IncomeOrExpense.expense),
+      payments.total(incomeOrExpense: ExpenseOrIncome.expense),
       Money(amount: 15000, currency: Currency.eur),
     );
     expect(
       payments.total(
-        incomeOrExpense: IncomeOrExpense.income,
+        incomeOrExpense: ExpenseOrIncome.income,
         from: DateTime(2020, 2, 27),
       ),
       Money(amount: 10000.5, currency: Currency.eur),
     );
     expect(
       payments.total(
-        incomeOrExpense: IncomeOrExpense.income,
+        incomeOrExpense: ExpenseOrIncome.income,
         from: DateTime(2020, 2, 14),
         until: DateTime(2020, 2, 28),
       ),
@@ -187,7 +187,7 @@ void main() {
     );
     expect(
       payments.total(
-        incomeOrExpense: IncomeOrExpense.income,
+        incomeOrExpense: ExpenseOrIncome.income,
         until: DateTime(2020, 2, 28),
       ),
       Money(amount: 25000.5, currency: Currency.eur),

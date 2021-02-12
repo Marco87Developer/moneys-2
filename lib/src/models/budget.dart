@@ -76,7 +76,7 @@ class Budget implements Comparable {
   }) =>
       payments.total(
         from: from,
-        incomeOrExpense: IncomeOrExpense.income,
+        incomeOrExpense: ExpenseOrIncome.income,
         until: until,
       );
 
@@ -294,7 +294,7 @@ class Budget implements Comparable {
   }) =>
       payments.total(
         from: from,
-        incomeOrExpense: IncomeOrExpense.expense,
+        incomeOrExpense: ExpenseOrIncome.expense,
         until: until,
       );
 

@@ -86,7 +86,7 @@ class Payments implements Comparable {
   ///
   Money total({
     DateTime? from,
-    required IncomeOrExpense incomeOrExpense,
+    required ExpenseOrIncome incomeOrExpense,
     DateTime? until,
   }) {
     final Currency currency = _history.first.value.currency;

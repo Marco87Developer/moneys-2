@@ -34,7 +34,7 @@ class Payment implements Comparable {
   Payment.fromMap(Map<String, dynamic> map)
       : dateTime = DateTime.parse('${map[_dateTimeKey]}'),
         id = map[_idKey],
-        incomeOrExpense = '${map[_incomeOrExpenseKey]}'.toIncomeOrExpense(),
+        incomeOrExpense = '${map[_incomeOrExpenseKey]}'.toExpenseOrIncome(),
         method = '${map[_methodKey]}'.toPaymentMethod(),
         value = '${map[_valueKey]}'.toMoney();
 
@@ -45,7 +45,7 @@ class Payment implements Comparable {
   final String id;
 
   /// Indicates whether this payment is an income or an expense.
-  final IncomeOrExpense incomeOrExpense;
+  final ExpenseOrIncome incomeOrExpense;
 
   /// The method used for this payment.
   final PaymentMethod method;

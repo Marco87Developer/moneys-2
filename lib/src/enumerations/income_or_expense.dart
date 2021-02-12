@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-/// The values of this enumeration indicate whether a payment is an [income] or
-/// an [expense].
+/// The values of this enumeration indicate whether a payment is an [expense] or
+/// an [income].
 ///
-enum IncomeOrExpense {
+enum ExpenseOrIncome {
   /// Expense
   expense,
 
@@ -11,26 +11,26 @@ enum IncomeOrExpense {
   income,
 }
 
-/// This extension adds functionality to the `IncomeOrExpense` enumeration
+/// This extension adds functionality to the `ExpenseOrIncome` enumeration
 /// values.
 ///
-extension IncomeOrExpenseX on IncomeOrExpense {
-  /// Returns the corresponding string value of this `IncomeOrExpense` value.
+extension ExpenseOrIncomeX on ExpenseOrIncome {
+  /// Returns the corresponding string value of this `ExpenseOrIncome` value.
   ///
   String string() => describeEnum(this);
 }
 
 /// This extension provides useful tools in order to convert a `String` into a
-/// `IncomeOrExpense` value.
+/// `ExpenseOrIncome` value.
 ///
-extension StringToIncomeOrExpenseX on String {
-  /// Converts this string into the corresponding `IncomeOrExpense` value.
+extension StringToExpenseOrIncomeX on String {
+  /// Converts this string into the corresponding `ExpenseOrIncome` value.
   ///
-  IncomeOrExpense toIncomeOrExpense() {
-    for (final IncomeOrExpense incomeOrExpense in IncomeOrExpense.values)
-      if (this == incomeOrExpense.string()) return incomeOrExpense;
+  ExpenseOrIncome toExpenseOrIncome() {
+    for (final ExpenseOrIncome expenseOrIncome in ExpenseOrIncome.values)
+      if (this == expenseOrIncome.string()) return expenseOrIncome;
 
     throw FormatException(
-        'The string does not contains a valid IncomeOrExpense representation.');
+        'The string does not contains a valid ExpenseOrIncome representation.');
   }
 }

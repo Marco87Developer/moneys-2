@@ -3,8 +3,8 @@ import 'package:moneys/src/enumerations/income_or_expense.dart';
 
 void main() {
   test('string()', () {
-    const IncomeOrExpense incomeOrExpense1 = IncomeOrExpense.expense;
-    const IncomeOrExpense incomeOrExpense2 = IncomeOrExpense.income;
+    const ExpenseOrIncome incomeOrExpense1 = ExpenseOrIncome.expense;
+    const ExpenseOrIncome incomeOrExpense2 = ExpenseOrIncome.income;
 
     expect(incomeOrExpense1.string(), 'expense');
     expect(incomeOrExpense2.string(), 'income');
@@ -14,7 +14,7 @@ void main() {
     const String incomeOrExpense1 = 'expense';
     const String incomeOrExpense2 = 'income';
 
-    expect(incomeOrExpense1.toIncomeOrExpense(), IncomeOrExpense.expense);
-    expect(incomeOrExpense2.toIncomeOrExpense(), IncomeOrExpense.income);
+    expect(incomeOrExpense1.toExpenseOrIncome(), ExpenseOrIncome.expense);
+    expect(incomeOrExpense2.toExpenseOrIncome(), ExpenseOrIncome.income);
   });
 }

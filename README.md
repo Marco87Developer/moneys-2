@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/pub-0.1.0--nullsafety.1-yellow)
+![](https://img.shields.io/badge/pub-0.1.0--nullsafety.2-yellow)
 
 # Moneys
 
@@ -37,7 +37,7 @@ Thanks to the `StringToCurrencyX` extension (`on String`) makes available the `t
 
 The `Payment` class records the date, the value, and the payment method used. It also has a *required* parameter for payment identification: `id`. You should guarantee its uniqueness.
 
-`Payment` is characterized according to whether it is income or expense (`IncomeOrExpense` enumeration is used).
+`Payment` is characterized according to whether it is income or expense (`ExpenseOrIncome` enumeration is used). The method used is specified by the value of the `PaymentMethod` enumeration. The frequency of renewal of a payment is specified by the value of the `Renewal` enumeration.
 
 The `Payments` class makes it easy to manage the history of the payments. It provides these features:
 
