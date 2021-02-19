@@ -37,7 +37,28 @@ enum PaymentMethod {
 extension PaymentMethodX on PaymentMethod {
   /// Returns the corresponding string value of this `PaymentMethod` value.
   ///
-  String string() => describeEnum(this);
+  String string() {
+    switch (this) {
+      case PaymentMethod.applePay:
+        return 'Apple Pay';
+      case PaymentMethod.bankTransfer:
+        return 'bank transfer';
+      case PaymentMethod.cash:
+        return 'cash';
+      case PaymentMethod.creditCard:
+        return 'credit card';
+      case PaymentMethod.cryptoCurrency:
+        return 'cryptocurrency';
+      case PaymentMethod.debitCard:
+        return 'debit card';
+      case PaymentMethod.gPay:
+        return 'Google Pay';
+      case PaymentMethod.payPal:
+        return 'PayPal';
+      case PaymentMethod.prepaidCard:
+        return 'prepaid card';
+    }
+  }
 }
 
 /// This extension provides useful tools in order to convert a `String` into a

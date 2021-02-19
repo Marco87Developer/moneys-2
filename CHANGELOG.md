@@ -1,3 +1,7 @@
+## [1.0.1] - 2021-02-19
+
+* Changed the `string()` extension method for `PaymentMethod` enumeration.
+
 ## [1.0.0] - 2021-02-17
 
 * Stable null safety release.
