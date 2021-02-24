@@ -1,183 +1,275 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moneys/src/enumerations/currency.dart';
 import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/enumerations/payment_method.dart';
+import 'package:moneys/src/enumerations/transaction_method.dart';
 import 'package:moneys/src/enumerations/renewal.dart';
 import 'package:moneys/src/models/budget.dart';
 import 'package:moneys/src/models/money.dart';
-import 'package:moneys/src/models/payment.dart';
-import 'package:moneys/src/models/payments.dart';
+import 'package:moneys/src/models/transaction.dart';
+import 'package:moneys/src/models/transactions.dart';
 
 void main() {
-  final Payments payments = Payments();
+  final Transactions transactions = Transactions();
 
-  final Payment payment1 = Payment(
+  final Transaction transaction1 = Transaction(
     dateTime: DateTime(2020, 2, 27, 13, 27),
+    description: 'Transaction 1',
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.income,
-    method: PaymentMethod.gPay,
+    method: TransactionMethod.gPay,
     value: Money(
       amount: 10000.5,
       currency: Currency.eur,
     ),
   );
-  final Payment payment2 = Payment(
+  final Transaction transaction2 = Transaction(
+    description: 'Transaction 2',
     dateTime: DateTime(2020, 2, 15, 15, 30),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.income,
-    method: PaymentMethod.debitCard,
+    method: TransactionMethod.debitCard,
     value: Money(
       amount: 15000,
       currency: Currency.eur,
     ),
   );
-  final Payment payment3 = Payment(
+  final Transaction transaction3 = Transaction(
+    description: 'Transaction 3',
     dateTime: DateTime(2020, 3, 15, 15, 30),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.expense,
-    method: PaymentMethod.debitCard,
+    method: TransactionMethod.debitCard,
     value: Money(
       amount: 15000,
       currency: Currency.eur,
     ),
   );
-  final Payment payment4 = Payment(
+  final Transaction transaction4 = Transaction(
+    description: 'Transaction 4',
     dateTime: DateTime(2020, 1, 10),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.expense,
-    method: PaymentMethod.gPay,
+    method: TransactionMethod.gPay,
     value: Money(
       amount: 5000,
       currency: Currency.eur,
     ),
   );
 
-  final List<Map<String, dynamic>> paymentsListOfMaps = [
+  final List<Map<String, dynamic>> transactionsListOfMaps = [
     {
+      'budgetName': '',
       'dateTime': '2020-02-27T13:27:00.000',
+      'description': 'Transaction 1',
       'id': 'unique id',
       'incomeOrExpense': 'income',
-      'method': 'gPay',
+      'method': 'Google Pay',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '10000.5 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-02-15T15:30:00.000',
+      'description': 'Transaction 2',
       'id': 'unique id',
       'incomeOrExpense': 'income',
-      'method': 'debitCard',
+      'method': 'debit card',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '15000 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-03-15T15:30:00.000',
+      'description': 'Transaction 3',
       'id': 'unique id',
       'incomeOrExpense': 'expense',
-      'method': 'debitCard',
+      'method': 'debit card',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '15000 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-01-10T00:00:00.000',
+      'description': 'Transaction 4',
       'id': 'unique id',
       'incomeOrExpense': 'expense',
-      'method': 'gPay',
+      'method': 'Google Pay',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '5000 EUR',
     },
   ];
 
-  final List<Map<String, dynamic>> orderedPaymentsListOfMaps = [
+  final List<Map<String, dynamic>> orderedTransactionsListOfMaps = [
     {
+      'budgetName': '',
       'dateTime': '2020-01-10T00:00:00.000',
+      'description': 'Transaction 4',
       'id': 'unique id',
       'incomeOrExpense': 'expense',
-      'method': 'gPay',
+      'method': 'Google Pay',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '5000.00 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-02-15T15:30:00.000',
+      'description': 'Transaction 2',
       'id': 'unique id',
       'incomeOrExpense': 'income',
-      'method': 'debitCard',
+      'method': 'debit card',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '15000.00 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-02-27T13:27:00.000',
+      'description': 'Transaction 1',
       'id': 'unique id',
       'incomeOrExpense': 'income',
-      'method': 'gPay',
+      'method': 'Google Pay',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '10000.50 EUR',
     },
     {
+      'budgetName': '',
       'dateTime': '2020-03-15T15:30:00.000',
+      'description': 'Transaction 3',
       'id': 'unique id',
       'incomeOrExpense': 'expense',
-      'method': 'debitCard',
+      'method': 'debit card',
+      'place': {
+        'address': '',
+        'latitude': '0.000000000000',
+        'longitude': '0.000000000000',
+        'name': '',
+        'tags': <String>[],
+      },
+      'tags': <String>[],
       'value': '15000.00 EUR',
     },
   ];
 
   final Map<String, dynamic> map = {
     'name': 'budget name',
-    'payments': paymentsListOfMaps,
     'renewal': 'annual',
     'size': '50000.00 EUR',
     'start': '2020-01-10T00:00:00.000',
+    'transactions': transactionsListOfMaps,
   };
 
   final Budget budgetAnnual = Budget(
     name: 'budget name',
-    payments: payments,
     renewal: Renewal.annual,
     size: Money(amount: 50000, currency: Currency.eur),
     start: DateTime(2020, 1, 10),
+    transactions: transactions,
   );
 
   final Budget budgetDaily = Budget(
     name: 'budget name 2',
-    payments: payments,
     renewal: Renewal.daily,
     size: Money(amount: 10000, currency: Currency.eur),
     start: DateTime(2020, 1, 10),
+    transactions: transactions,
   );
 
   final Budget budgetWeekly = Budget(
     name: 'budget',
-    payments: payments,
     renewal: Renewal.weekly,
     size: Money(amount: 70000, currency: Currency.eur),
     start: DateTime(2020, 1, 10),
+    transactions: transactions,
   );
 
   final Budget budgetMonthly = Budget(
     name: 'budget name',
-    payments: payments,
     renewal: Renewal.monthly,
     size: Money(amount: 70000, currency: Currency.eur),
     start: DateTime(2020, 1, 5),
+    transactions: transactions,
   );
 
   test('Budget.fromMap()', () {
-    payments..add(payment1)..add(payment2)..add(payment3)..add(payment4);
+    transactions
+      ..add(transaction1)
+      ..add(transaction2)
+      ..add(transaction3)
+      ..add(transaction4);
 
     expect(Budget.fromMap(map), budgetAnnual);
   });
 
   test('To toMap()', () {
-    payments..add(payment1)..add(payment2)..add(payment3)..add(payment4);
+    transactions
+      ..add(transaction1)
+      ..add(transaction2)
+      ..add(transaction3)
+      ..add(transaction4);
 
     expect(budgetAnnual.toMap(), {
       'name': 'budget name',
-      'payments': orderedPaymentsListOfMaps,
       'renewal': 'annual',
       'size': '50000.00 EUR',
       'start': '2020-01-10T00:00:00.000',
+      'transactions': orderedTransactionsListOfMaps,
     });
   });
 
   test('lastRenewal()', () {
     /// Renewal.annual
-    expect(budgetAnnual.lastRenewal(), DateTime(2020, 1, 10));
+    expect(budgetAnnual.lastRenewal(), DateTime(2021, 1, 10));
     expect(
-      budgetAnnual.lastRenewal(from: DateTime(2021, 1, 15)),
-      DateTime(2021, 1, 10),
+      budgetAnnual.lastRenewal(from: DateTime(2022, 1, 15)),
+      DateTime(2022, 1, 10),
     );
 
     /// Renewal.daily
@@ -213,10 +305,10 @@ void main() {
 
   test('nextRenewal()', () {
     /// Renewal.annual
-    expect(budgetAnnual.nextRenewal(), DateTime(2021, 1, 10));
+    expect(budgetAnnual.nextRenewal(), DateTime(2022, 1, 10));
     expect(
-      budgetAnnual.nextRenewal(from: DateTime(2021, 1, 10)),
-      DateTime(2022, 1, 10),
+      budgetAnnual.nextRenewal(from: DateTime(2022, 1, 10)),
+      DateTime(2023, 1, 10),
     );
 
     // Renewal.daily
@@ -255,7 +347,7 @@ void main() {
 
   test('daysBetweenRenewals()', () {
     /// Renewal.annual
-    expect(budgetAnnual.daysBetweenRenewals(), 366);
+    expect(budgetAnnual.daysBetweenRenewals(), 365);
     expect(budgetAnnual.daysBetweenRenewals(from: DateTime(2022, 1, 10)), 365);
     expect(budgetAnnual.daysBetweenRenewals(from: DateTime(2022, 1, 11)), 365);
 
@@ -273,7 +365,11 @@ void main() {
   });
 
   test('spent() and earned()', () {
-    payments..add(payment1)..add(payment2)..add(payment3)..add(payment4);
+    transactions
+      ..add(transaction1)
+      ..add(transaction2)
+      ..add(transaction3)
+      ..add(transaction4);
 
     expect(budgetAnnual.spent(), Money(amount: 20000, currency: Currency.eur));
     expect(
@@ -292,7 +388,11 @@ void main() {
   });
 
   test('compareTo()', () {
-    payments..add(payment1)..add(payment2)..add(payment3)..add(payment4);
+    transactions
+      ..add(transaction1)
+      ..add(transaction2)
+      ..add(transaction3)
+      ..add(transaction4);
 
     expect(budgetAnnual.compareTo(budgetDaily), -1);
     expect(budgetAnnual.compareTo(budgetWeekly), 1);

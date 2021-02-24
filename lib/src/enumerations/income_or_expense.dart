@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-/// The values of this enumeration indicate whether a payment is an [expense] or
-/// an [income].
+/// The values of this enumeration indicate whether a transaction is an
+/// [expense] or an [income].
 ///
 enum ExpenseOrIncome {
   /// Expense

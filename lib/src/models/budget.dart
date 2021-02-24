@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/models/payments.dart';
+import 'package:moneys/src/models/transactions.dart';
 
 import '../enumerations/renewal.dart';
 import '../models/money.dart';
 
 const String _nameKey = 'name';
-const String _paymentsKey = 'payments';
 const String _renewalKey = 'renewal';
 const String _sizeKey = 'size';
 const String _startKey = 'start';
+const String _transactionsKey = 'transactions';
 
 /// This class models a budget.
 ///
 class Budget implements Comparable {
   /// A budget.
   ///
-  /// It **requires** these fields: `String` [name], `Renewal` [renewal],
-  /// `Money` [size] and `DateTime` [start].
+  /// It **requires** these fields:
+  ///
+  /// * `String` [name].
+  /// * `Renewal` [renewal].
+  /// * `Money` [size].
+  /// * `DateTime` [start].
   ///
   Budget({
     required this.name,
-    required this.payments,
     required this.renewal,
     required this.size,
     required this.start,
+    required this.transactions,
   });
 
   /// Creates an `Budget` instance starting from a `Map<String, dynamic> map`.
@@ -33,10 +37,10 @@ class Budget implements Comparable {
   ///
   Budget.fromMap(Map<String, dynamic> map)
       : name = map[_nameKey],
-        payments = Payments.fromListOfMaps(map[_paymentsKey]),
         renewal = '${map[_renewalKey]}'.toRenewal(),
         size = '${map[_sizeKey]}'.toMoney(),
-        start = DateTime.parse(map[_startKey]);
+        start = DateTime.parse(map[_startKey]),
+        transactions = Transactions.fromListOfMaps(map[_transactionsKey]);
 
   /// The name that identifies this budget.
   final String name;
@@ -50,8 +54,8 @@ class Budget implements Comparable {
   /// The actual start of this budget.
   final DateTime start;
 
-  /// The history of all the payments related with this budget.
-  final Payments payments;
+  /// The history of all the transactions related with this budget.
+  final Transactions transactions;
 
   /// Gets the number of days between the last renewal and the next one. In the
   /// case of monthly renewal, the value returned depends on the month in which
@@ -68,13 +72,13 @@ class Budget implements Comparable {
 
   /// Returns the total of the incomes. These can be filtered with respect to
   /// [from] and [until] dates, or only one of these two dates, or none (in
-  /// which case returns the total over the entire history of the payments).
+  /// which case returns the total over the entire history of the transactions).
   ///
   Money earned({
     DateTime? from,
     DateTime? until,
   }) =>
-      payments.total(
+      transactions.total(
         from: from,
         incomeOrExpense: ExpenseOrIncome.income,
         until: until,
@@ -286,13 +290,13 @@ class Budget implements Comparable {
 
   /// Returns the total of the expenses. These can be filtered with respect to
   /// [from] and [until] dates, or only one of these two dates, or none (in
-  /// which case returns the total over the entire history of the payments).
+  /// which case returns the total over the entire history of the transactions).
   ///
   Money spent({
     DateTime? from,
     DateTime? until,
   }) =>
-      payments.total(
+      transactions.total(
         from: from,
         incomeOrExpense: ExpenseOrIncome.expense,
         until: until,
@@ -304,7 +308,7 @@ class Budget implements Comparable {
   ///
   Map<String, dynamic> toMap() => {
         _nameKey: name,
-        _paymentsKey: payments.toListOfMaps(),
+        _transactionsKey: transactions.toListOfMaps(),
         _renewalKey: renewal.string(),
         _sizeKey: '$size',
         _startKey: start.toIso8601String(),
@@ -316,7 +320,7 @@ class Budget implements Comparable {
   /// 2. [start]
   /// 3. [renewal]
   /// 4. [size]
-  /// 5. [payments]
+  /// 5. [transactions]
   ///
   @override
   int compareTo(covariant Budget other) {
@@ -337,17 +341,17 @@ class Budget implements Comparable {
     if (comparison4 != 0) return comparison4;
 
     // Last comparison
-    final int comparison5 = payments.compareTo(other.payments);
+    final int comparison5 = transactions.compareTo(other.transactions);
     return comparison5;
   }
 
   @override
   int get hashCode => hashValues(
         name,
-        payments,
         renewal,
         size,
         start,
+        transactions,
       );
 
   /// Returns if this instance is less than the [other].

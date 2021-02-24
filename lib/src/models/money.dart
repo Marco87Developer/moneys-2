@@ -11,7 +11,10 @@ const String _currencyKey = 'currency';
 class Money implements Comparable {
   /// A reference to a money.
   ///
-  /// It **requires** these fields: `double` [amount] and `Currency` [currency].
+  /// It **requires** these fields:
+  ///
+  /// * `double` [amount].
+  /// * `Currency` [currency].
   ///
   const Money({
     required this.amount,
@@ -20,7 +23,7 @@ class Money implements Comparable {
 
   /// Creates an `Money` instance starting from a `Map<String, dynamic> map`.
   ///
-  /// This can be useful for retrieving the instance in a database.
+  /// This can be useful for retrieving the instance from a database.
   ///
   Money.fromMap(Map<String, dynamic> map)
       : amount = map[_amountKey],
