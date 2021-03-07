@@ -3,7 +3,7 @@ import 'package:moneys/src/enumerations/currency.dart';
 import 'package:moneys/src/enumerations/income_or_expense.dart';
 import 'package:moneys/src/enumerations/transaction_method.dart';
 import 'package:moneys/src/models/money.dart';
-import 'package:moneys/src/models/transaction.dart';
+import 'package:moneys/src/models/money_transaction.dart';
 
 void main() {
   test('Transaction.fromMap()', () {
@@ -26,8 +26,8 @@ void main() {
     };
 
     expect(
-      Transaction.fromMap(map),
-      Transaction(
+      MoneyTransaction.fromMap(map),
+      MoneyTransaction(
         dateTime: DateTime(2020, 2, 27, 13, 27),
         description: 'Transaction from map',
         id: 'unique id',
@@ -42,7 +42,7 @@ void main() {
   });
 
   test('toMap()', () {
-    final Transaction transaction = Transaction(
+    final MoneyTransaction transaction = MoneyTransaction(
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction to map',
       id: 'unique id',
@@ -74,7 +74,7 @@ void main() {
   });
 
   test('@override compareTo()', () {
-    final Transaction transaction1 = Transaction(
+    final MoneyTransaction transaction1 = MoneyTransaction(
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 1',
       id: 'unique id',
@@ -85,7 +85,7 @@ void main() {
         currency: Currency.eur,
       ),
     );
-    final Transaction transaction2 = Transaction(
+    final MoneyTransaction transaction2 = MoneyTransaction(
       dateTime: DateTime(2020, 2, 15, 15, 30),
       description: 'Transaction 2',
       id: 'unique id',
@@ -96,7 +96,7 @@ void main() {
         currency: Currency.eur,
       ),
     );
-    final Transaction transaction3 = Transaction(
+    final MoneyTransaction transaction3 = MoneyTransaction(
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 3',
       id: 'unique id',
@@ -107,7 +107,7 @@ void main() {
         currency: Currency.eur,
       ),
     );
-    final Transaction transaction4 = Transaction(
+    final MoneyTransaction transaction4 = MoneyTransaction(
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 4',
       id: 'unique id',

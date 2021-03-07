@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moneys/moneys.dart';
-import 'package:moneys/src/models/transactions.dart';
+import 'package:moneys/src/models/money_transactions.dart';
 
 void main() {
-  final Transactions transactions = Transactions();
+  final MoneyTransactions transactions = MoneyTransactions();
 
-  final Transaction transaction1 = Transaction(
+  final MoneyTransaction transaction1 = MoneyTransaction(
     dateTime: DateTime(2020, 2, 27, 13, 27),
     description: 'Transaction 1',
     id: 'unique id',
@@ -16,7 +16,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction2 = Transaction(
+  final MoneyTransaction transaction2 = MoneyTransaction(
     dateTime: DateTime(2020, 3, 15, 15, 30),
     description: 'Transaction 2',
     id: 'unique id',
@@ -27,7 +27,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction3 = Transaction(
+  final MoneyTransaction transaction3 = MoneyTransaction(
     dateTime: DateTime(2020, 2, 15, 15, 30),
     description: 'Transaction 3',
     id: 'unique id',
@@ -38,7 +38,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction4 = Transaction(
+  final MoneyTransaction transaction4 = MoneyTransaction(
     dateTime: DateTime(2020, 1, 10),
     description: 'Transaction 4',
     id: 'unique id',
@@ -199,7 +199,7 @@ void main() {
       ..add(transaction3)
       ..add(transaction4);
 
-    expect(Transactions.fromListOfMaps(listOfMaps), transactions);
+    expect(MoneyTransactions.fromListOfMaps(listOfMaps), transactions);
   });
 
   test('To List<Map<String, dynamic>>', () {

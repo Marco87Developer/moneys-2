@@ -1,8 +1,8 @@
-![](https://img.shields.io/badge/pub-v1.0.0-blue)
+![](https://img.shields.io/badge/pub-v1.1.0-blue)
 
 # Moneys
 
-A set of classes and enumerations for managing money and payments.
+A set of classes and enumerations for managing money and transactions.
 
 ## `Money` class
 
@@ -33,27 +33,27 @@ In this enumeration are enumerated all the currencies of the world, according to
 
 Thanks to the `StringToCurrencyX` extension (`on String`) makes available the `toCurrency()` method, which allows to determine the `Currency` value from a string.
 
-## `Payment` and `Payments` classes
+## `Transaction` and `Transactions` classes
 
-The `Payment` class records the date, the value, and the payment method used. It also has a *required* parameter for payment identification: `id`. You should guarantee its uniqueness.
+The `Transaction` class records the date, the value, and the transaction method used. It also has a *required* parameter for transaction identification: `id`. You should guarantee its uniqueness.
 
-`Payment` is characterized according to whether it is income or expense (`ExpenseOrIncome` enumeration is used). The method used is specified by the value of the `PaymentMethod` enumeration. The frequency of renewal of a payment is specified by the value of the `Renewal` enumeration.
+`Transaction` is characterized according to whether it is income or expense (`ExpenseOrIncome` enumeration is used). The method used is specified by the value of the `TransactionMethod` enumeration. The frequency of renewal of a transaction is specified by the value of the `Renewal` enumeration.
 
-The `Payments` class makes it easy to manage the history of the payments. It provides these features:
+The `Transactions` class makes it easy to manage the history of the transactions. It provides these features:
 
-* Get the entire history of payments.
-* Add one payment to the history.
-* Remove a payment from the history.
-* Get all the payments (incomes, expenses or both) made at any given time.
-* Get all the payments (incomes, expenses or both) made at any given time or before.
-* Get all the payments (incomes, expenses or both) made at any given time or after.
-* Get all the payments (incomes, expenses or both) made using a certain payment method.
-* Get all the payments in the history with value _less_ than (or _less_ than or _equal_ to) a given value.
-* Get all the payments in the history with value _greater_ than (or _greater_ than or _equal_ to) a given value.
+* Get the entire history of transactions.
+* Add one transaction to the history.
+* Remove a transaction from the history.
+* Get all the transactions (incomes, expenses or both) made at any given time.
+* Get all the transactions (incomes, expenses or both) made at any given time or before.
+* Get all the transactions (incomes, expenses or both) made at any given time or after.
+* Get all the transactions (incomes, expenses or both) made using a certain transaction method.
+* Get all the transactions in the history with value _less_ than (or _less_ than or _equal_ to) a given value.
+* Get all the transactions in the history with value _greater_ than (or _greater_ than or _equal_ to) a given value.
 
 ## `Budget` class
 
-Use the `Budget` class to manage a budget. Give it a `name`, specify how large it is (`size`), indicate what the `renewal` period is and from what date (`start`), and manage the list of `payments` linked with this budget.
+Use the `Budget` class to manage a budget. Give it a `name`, specify how large it is (`size`), indicate what the `renewal` period is and from what date (`start`), and manage the list of `transactions` linked with this budget.
 
 Also, this class, has the following methods:
 

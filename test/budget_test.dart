@@ -5,13 +5,13 @@ import 'package:moneys/src/enumerations/transaction_method.dart';
 import 'package:moneys/src/enumerations/renewal.dart';
 import 'package:moneys/src/models/budget.dart';
 import 'package:moneys/src/models/money.dart';
-import 'package:moneys/src/models/transaction.dart';
-import 'package:moneys/src/models/transactions.dart';
+import 'package:moneys/src/models/money_transaction.dart';
+import 'package:moneys/src/models/money_transactions.dart';
 
 void main() {
-  final Transactions transactions = Transactions();
+  final MoneyTransactions transactions = MoneyTransactions();
 
-  final Transaction transaction1 = Transaction(
+  final MoneyTransaction transaction1 = MoneyTransaction(
     dateTime: DateTime(2020, 2, 27, 13, 27),
     description: 'Transaction 1',
     id: 'unique id',
@@ -22,7 +22,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction2 = Transaction(
+  final MoneyTransaction transaction2 = MoneyTransaction(
     description: 'Transaction 2',
     dateTime: DateTime(2020, 2, 15, 15, 30),
     id: 'unique id',
@@ -33,7 +33,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction3 = Transaction(
+  final MoneyTransaction transaction3 = MoneyTransaction(
     description: 'Transaction 3',
     dateTime: DateTime(2020, 3, 15, 15, 30),
     id: 'unique id',
@@ -44,7 +44,7 @@ void main() {
       currency: Currency.eur,
     ),
   );
-  final Transaction transaction4 = Transaction(
+  final MoneyTransaction transaction4 = MoneyTransaction(
     description: 'Transaction 4',
     dateTime: DateTime(2020, 1, 10),
     id: 'unique id',

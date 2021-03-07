@@ -20,7 +20,7 @@ const String _valueKey = 'value';
 
 /// This class models a representation of a money transaction.
 ///
-class Transaction implements Comparable {
+class MoneyTransaction implements Comparable {
   /// Representation of a money transaction.
   ///
   /// It **requires** these fields:
@@ -32,7 +32,7 @@ class Transaction implements Comparable {
   /// * `TransactionMethod` [method].
   /// * `Money` [value].
   ///
-  const Transaction({
+  const MoneyTransaction({
     this.budgetName = '',
     required this.dateTime,
     required this.description,
@@ -48,12 +48,12 @@ class Transaction implements Comparable {
     required this.value,
   }) : _tags = tags;
 
-  /// Creates an `Transaction` instance starting from a
+  /// Creates an `MoneyTransaction` instance starting from a
   /// `Map<String, dynamic> map`.
   ///
   /// This can be useful for retrieving the instance in a database.
   ///
-  Transaction.fromMap(Map<String, dynamic> map)
+  MoneyTransaction.fromMap(Map<String, dynamic> map)
       : budgetName = map[_budgetNameKey],
         dateTime = DateTime.parse('${map[_dateTimeKey]}'),
         description = map[_descriptionKey],
@@ -127,7 +127,7 @@ class Transaction implements Comparable {
   /// 6. [id]
   ///
   @override
-  int compareTo(covariant Transaction other) {
+  int compareTo(covariant MoneyTransaction other) {
     // 1º comparison
     final int comparison1 = dateTime.compareTo(other.dateTime);
     if (comparison1 != 0) return comparison1;
@@ -159,20 +159,20 @@ class Transaction implements Comparable {
 
   /// Returns if this instance is less than the [other].
   ///
-  bool operator <(covariant Transaction other) => compareTo(other) < 0;
+  bool operator <(covariant MoneyTransaction other) => compareTo(other) < 0;
 
   /// Return if this instance is less than or equal to the [other].
   ///
-  bool operator <=(covariant Transaction other) => compareTo(other) <= 0;
+  bool operator <=(covariant MoneyTransaction other) => compareTo(other) <= 0;
 
   @override
-  bool operator ==(covariant Transaction other) => compareTo(other) == 0;
+  bool operator ==(covariant MoneyTransaction other) => compareTo(other) == 0;
 
   /// Return if this instance is greater than or equal to the [other].
   ///
-  bool operator >=(covariant Transaction other) => compareTo(other) >= 0;
+  bool operator >=(covariant MoneyTransaction other) => compareTo(other) >= 0;
 
   /// Return if this instance is greater than the [other].
   ///
-  bool operator >(covariant Transaction other) => compareTo(other) > 0;
+  bool operator >(covariant MoneyTransaction other) => compareTo(other) > 0;
 }

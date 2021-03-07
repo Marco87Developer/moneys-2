@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/models/transactions.dart';
+import 'package:moneys/src/models/money_transactions.dart';
 
 import '../enumerations/renewal.dart';
 import '../models/money.dart';
@@ -40,7 +40,7 @@ class Budget implements Comparable {
         renewal = '${map[_renewalKey]}'.toRenewal(),
         size = '${map[_sizeKey]}'.toMoney(),
         start = DateTime.parse(map[_startKey]),
-        transactions = Transactions.fromListOfMaps(map[_transactionsKey]);
+        transactions = MoneyTransactions.fromListOfMaps(map[_transactionsKey]);
 
   /// The name that identifies this budget.
   final String name;
@@ -55,7 +55,7 @@ class Budget implements Comparable {
   final DateTime start;
 
   /// The history of all the transactions related with this budget.
-  final Transactions transactions;
+  final MoneyTransactions transactions;
 
   /// Gets the number of days between the last renewal and the next one. In the
   /// case of monthly renewal, the value returned depends on the month in which
