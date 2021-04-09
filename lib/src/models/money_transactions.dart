@@ -2,8 +2,8 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:moneys/src/enumerations/currency.dart';
-import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/enumerations/transaction_method.dart';
+import 'package:moneys/src/enumerations/expense_or_income.dart';
+import 'package:moneys/src/enumerations/money_transaction_method.dart';
 import 'package:moneys/src/models/money.dart';
 import 'package:moneys/src/models/money_transaction.dart';
 
@@ -168,7 +168,7 @@ class MoneyTransactions implements Comparable {
   /// Returns an unmodifiable list of all the transactions in whose method was
   /// [method].
   ///
-  List<MoneyTransaction> whoseMethodWas(TransactionMethod method) {
+  List<MoneyTransaction> whoseMethodWas(MoneyTransactionMethod method) {
     final List<MoneyTransaction> filtered = _history
         .where((moneyTransaction) => moneyTransaction.method == method)
         .toList();

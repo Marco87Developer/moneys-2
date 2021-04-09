@@ -11,11 +11,6 @@ const String _currencyKey = 'currency';
 class Money implements Comparable {
   /// A reference to a money.
   ///
-  /// It **requires** these fields:
-  ///
-  /// * `double` [amount].
-  /// * `Currency` [currency].
-  ///
   const Money({
     required this.amount,
     required this.currency,

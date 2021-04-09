@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/models/money_transactions.dart';
 
+import '../enumerations/expense_or_income.dart';
 import '../enumerations/renewal.dart';
 import '../models/money.dart';
+import '../models/money_transactions.dart';
 
 const String _nameKey = 'name';
 const String _renewalKey = 'renewal';
@@ -15,13 +15,6 @@ const String _transactionsKey = 'transactions';
 ///
 class Budget implements Comparable {
   /// A budget.
-  ///
-  /// It **requires** these fields:
-  ///
-  /// * `String` [name].
-  /// * `Renewal` [renewal].
-  /// * `Money` [size].
-  /// * `DateTime` [start].
   ///
   Budget({
     required this.name,

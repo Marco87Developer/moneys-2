@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moneys/src/enumerations/currency.dart';
-import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/enumerations/transaction_method.dart';
+import 'package:moneys/src/enumerations/expense_or_income.dart';
+import 'package:moneys/src/enumerations/money_transaction_method.dart';
 import 'package:moneys/src/models/money.dart';
 import 'package:moneys/src/models/money_transaction.dart';
 
@@ -32,7 +32,7 @@ void main() {
         description: 'Transaction from map',
         id: 'unique id',
         incomeOrExpense: ExpenseOrIncome.income,
-        method: TransactionMethod.debitCard,
+        method: MoneyTransactionMethod.debitCard,
         value: Money(
           amount: 10000.5,
           currency: Currency.eur,
@@ -47,7 +47,7 @@ void main() {
       description: 'Transaction to map',
       id: 'unique id',
       incomeOrExpense: ExpenseOrIncome.income,
-      method: TransactionMethod.debitCard,
+      method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 10000.5,
         currency: Currency.eur,
@@ -79,7 +79,7 @@ void main() {
       description: 'Transaction 1',
       id: 'unique id',
       incomeOrExpense: ExpenseOrIncome.income,
-      method: TransactionMethod.debitCard,
+      method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 10000.5,
         currency: Currency.eur,
@@ -90,7 +90,7 @@ void main() {
       description: 'Transaction 2',
       id: 'unique id',
       incomeOrExpense: ExpenseOrIncome.income,
-      method: TransactionMethod.debitCard,
+      method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 15000,
         currency: Currency.eur,
@@ -101,7 +101,7 @@ void main() {
       description: 'Transaction 3',
       id: 'unique id',
       incomeOrExpense: ExpenseOrIncome.income,
-      method: TransactionMethod.debitCard,
+      method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 15000,
         currency: Currency.eur,
@@ -112,7 +112,7 @@ void main() {
       description: 'Transaction 4',
       id: 'unique id',
       incomeOrExpense: ExpenseOrIncome.income,
-      method: TransactionMethod.applePay,
+      method: MoneyTransactionMethod.applePay,
       value: Money(
         amount: 10000.5,
         currency: Currency.eur,

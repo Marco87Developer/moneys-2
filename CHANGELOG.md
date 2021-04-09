@@ -1,3 +1,10 @@
+# 1.2.0
+
+<sup><sub>Release date: 2021-04-09.</sub></sup>
+
+* Updated dependencies.
+* **Breaking change.** Changed `TransactionMethod` enumeration name into `MoneyTransactionMethod` in order to contextualize the term “transaction”.
+
 # 1.1.0
 
 <sup><sub>Release date: 2021-02-23.</sub></sup>

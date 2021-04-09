@@ -3,9 +3,9 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:geos/geos.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:moneys/src/enumerations/income_or_expense.dart';
+import 'package:moneys/src/enumerations/expense_or_income.dart';
 
-import '../enumerations/transaction_method.dart';
+import '../enumerations/money_transaction_method.dart';
 import 'money.dart';
 
 const String _budgetNameKey = 'budgetName';
@@ -22,15 +22,6 @@ const String _valueKey = 'value';
 ///
 class MoneyTransaction implements Comparable {
   /// Representation of a money transaction.
-  ///
-  /// It **requires** these fields:
-  ///
-  /// * `DateTime` [dateTime].
-  /// * `String` [description].
-  /// * `String` [id].
-  /// * `IncomeOrExpense` [incomeOrExpense].
-  /// * `TransactionMethod` [method].
-  /// * `Money` [value].
   ///
   const MoneyTransaction({
     this.budgetName = '',
@@ -59,7 +50,7 @@ class MoneyTransaction implements Comparable {
         description = map[_descriptionKey],
         id = map[_idKey],
         incomeOrExpense = '${map[_incomeOrExpenseKey]}'.toExpenseOrIncome(),
-        method = '${map[_methodKey]}'.toTransactionMethod(),
+        method = '${map[_methodKey]}'.toMoneyTransactionMethod(),
         place = Place.fromMap(map[_placeKey]),
         _tags = map[_tagsKey],
         value = '${map[_valueKey]}'.toMoney();
@@ -80,7 +71,7 @@ class MoneyTransaction implements Comparable {
   final ExpenseOrIncome incomeOrExpense;
 
   /// The method used for this transaction.
-  final TransactionMethod method;
+  final MoneyTransactionMethod method;
 
   /// The place where the transaction occured.
   final Place place;

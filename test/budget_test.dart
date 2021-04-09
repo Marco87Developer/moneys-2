@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moneys/src/enumerations/currency.dart';
-import 'package:moneys/src/enumerations/income_or_expense.dart';
-import 'package:moneys/src/enumerations/transaction_method.dart';
+import 'package:moneys/src/enumerations/expense_or_income.dart';
+import 'package:moneys/src/enumerations/money_transaction_method.dart';
 import 'package:moneys/src/enumerations/renewal.dart';
 import 'package:moneys/src/models/budget.dart';
 import 'package:moneys/src/models/money.dart';
@@ -16,7 +16,7 @@ void main() {
     description: 'Transaction 1',
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.income,
-    method: TransactionMethod.gPay,
+    method: MoneyTransactionMethod.gPay,
     value: Money(
       amount: 10000.5,
       currency: Currency.eur,
@@ -27,7 +27,7 @@ void main() {
     dateTime: DateTime(2020, 2, 15, 15, 30),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.income,
-    method: TransactionMethod.debitCard,
+    method: MoneyTransactionMethod.debitCard,
     value: Money(
       amount: 15000,
       currency: Currency.eur,
@@ -38,7 +38,7 @@ void main() {
     dateTime: DateTime(2020, 3, 15, 15, 30),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.expense,
-    method: TransactionMethod.debitCard,
+    method: MoneyTransactionMethod.debitCard,
     value: Money(
       amount: 15000,
       currency: Currency.eur,
@@ -49,7 +49,7 @@ void main() {
     dateTime: DateTime(2020, 1, 10),
     id: 'unique id',
     incomeOrExpense: ExpenseOrIncome.expense,
-    method: TransactionMethod.gPay,
+    method: MoneyTransactionMethod.gPay,
     value: Money(
       amount: 5000,
       currency: Currency.eur,
