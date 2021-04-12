@@ -31,7 +31,7 @@ void main() {
         dateTime: DateTime(2020, 2, 27, 13, 27),
         description: 'Transaction from map',
         id: 'unique id',
-        incomeOrExpense: ExpenseOrIncome.income,
+        expenseOrIncome: ExpenseOrIncome.income,
         method: MoneyTransactionMethod.debitCard,
         value: Money(
           amount: 10000.5,
@@ -46,7 +46,7 @@ void main() {
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction to map',
       id: 'unique id',
-      incomeOrExpense: ExpenseOrIncome.income,
+      expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 10000.5,
@@ -78,7 +78,7 @@ void main() {
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 1',
       id: 'unique id',
-      incomeOrExpense: ExpenseOrIncome.income,
+      expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 10000.5,
@@ -89,7 +89,7 @@ void main() {
       dateTime: DateTime(2020, 2, 15, 15, 30),
       description: 'Transaction 2',
       id: 'unique id',
-      incomeOrExpense: ExpenseOrIncome.income,
+      expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 15000,
@@ -100,7 +100,7 @@ void main() {
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 3',
       id: 'unique id',
-      incomeOrExpense: ExpenseOrIncome.income,
+      expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
       value: Money(
         amount: 15000,
@@ -111,7 +111,7 @@ void main() {
       dateTime: DateTime(2020, 2, 27, 13, 27),
       description: 'Transaction 4',
       id: 'unique id',
-      incomeOrExpense: ExpenseOrIncome.income,
+      expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.applePay,
       value: Money(
         amount: 10000.5,

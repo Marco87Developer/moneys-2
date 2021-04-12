@@ -12,7 +12,7 @@ const String _budgetNameKey = 'budgetName';
 const String _dateTimeKey = 'dateTime';
 const String _descriptionKey = 'description';
 const String _idKey = 'id';
-const String _incomeOrExpenseKey = 'incomeOrExpense';
+const String _expenseOrIncomeKey = 'expenseOrIncome';
 const String _methodKey = 'method';
 const String _placeKey = 'place';
 const String _tagsKey = 'tags';
@@ -27,8 +27,8 @@ class MoneyTransaction implements Comparable {
     this.budgetName = '',
     required this.dateTime,
     required this.description,
+    required this.expenseOrIncome,
     required this.id,
-    required this.incomeOrExpense,
     required this.method,
     this.place = const Place(
       address: '',
@@ -49,7 +49,7 @@ class MoneyTransaction implements Comparable {
         dateTime = DateTime.parse('${map[_dateTimeKey]}'),
         description = map[_descriptionKey],
         id = map[_idKey],
-        incomeOrExpense = '${map[_incomeOrExpenseKey]}'.toExpenseOrIncome(),
+        expenseOrIncome = '${map[_expenseOrIncomeKey]}'.toExpenseOrIncome(),
         method = '${map[_methodKey]}'.toMoneyTransactionMethod(),
         place = Place.fromMap(map[_placeKey]),
         _tags = map[_tagsKey],
@@ -64,11 +64,11 @@ class MoneyTransaction implements Comparable {
   /// The description of this transaction.
   final String description;
 
+  /// Indicates whether this transaction is an expense or an income.
+  final ExpenseOrIncome expenseOrIncome;
+
   /// The identificator of this transaction. It should be unique.
   final String id;
-
-  /// Indicates whether this transaction is an income or an expense.
-  final ExpenseOrIncome incomeOrExpense;
 
   /// The method used for this transaction.
   final MoneyTransactionMethod method;
@@ -101,7 +101,7 @@ class MoneyTransaction implements Comparable {
         _dateTimeKey: dateTime.toIso8601String(),
         _descriptionKey: description,
         _idKey: id,
-        _incomeOrExpenseKey: incomeOrExpense.string(),
+        _expenseOrIncomeKey: expenseOrIncome.string(),
         _methodKey: method.string(),
         _placeKey: place.toMap(),
         _tagsKey: tags,
@@ -146,7 +146,7 @@ class MoneyTransaction implements Comparable {
 
   @override
   int get hashCode => hashValues(budgetName, dateTime, description, id,
-      incomeOrExpense, method, place, value);
+      expenseOrIncome, method, place, value);
 
   /// Returns if this instance is less than the [other].
   ///

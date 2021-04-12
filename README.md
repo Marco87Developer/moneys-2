@@ -44,10 +44,10 @@ The `MoneyTransactions` class makes it easy to manage the history of the transac
 * Get the entire history of transactions.
 * Add one transaction to the history.
 * Remove a transaction from the history.
-* Get all the transactions (incomes, expenses or both) made at any given time.
-* Get all the transactions (incomes, expenses or both) made at any given time or before.
-* Get all the transactions (incomes, expenses or both) made at any given time or after.
-* Get all the transactions (incomes, expenses or both) made using a certain transaction method.
+* Get all the transactions (expenses, incomes, or both) made at any given time.
+* Get all the transactions (expenses, incomes, or both) made at any given time or before.
+* Get all the transactions (expenses, incomes, or both) made at any given time or after.
+* Get all the transactions (expenses, incomes, or both) made using a certain transaction method.
 * Get all the transactions in the history with value _less_ than (or _less_ than or _equal_ to) a given value.
 * Get all the transactions in the history with value _greater_ than (or _greater_ than or _equal_ to) a given value.
 

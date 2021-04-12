@@ -1,3 +1,9 @@
+# 1.2.1
+
+<sup><sub>Release date: 2021-04-12.</sub></sup>
+
+* Changed `incomeOrExpense` `MoneyTransaction` property name into `expenseOrIncome`.
+
 # 1.2.0
 
 <sup><sub>Release date: 2021-04-09.</sub></sup>

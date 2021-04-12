@@ -113,7 +113,7 @@ class MoneyTransactions implements Comparable {
 
     if (from == null && until == null) {
       for (final MoneyTransaction moneyTransaction in _history) {
-        if (moneyTransaction.incomeOrExpense == incomeOrExpense) {
+        if (moneyTransaction.expenseOrIncome == incomeOrExpense) {
           result += moneyTransaction.value;
         }
       }
@@ -124,7 +124,7 @@ class MoneyTransactions implements Comparable {
     /// Only [until] is specified.
     if (from == null && until != null) {
       for (final MoneyTransaction moneyTransaction in _history) {
-        if (moneyTransaction.incomeOrExpense == incomeOrExpense &&
+        if (moneyTransaction.expenseOrIncome == incomeOrExpense &&
             (moneyTransaction.dateTime.isBefore(until) ||
                 moneyTransaction.dateTime.isAtSameMomentAs(until))) {
           result += moneyTransaction.value;
@@ -137,7 +137,7 @@ class MoneyTransactions implements Comparable {
     /// Only [from] is specified.
     if (from != null && until == null) {
       for (final MoneyTransaction moneyTransaction in _history) {
-        if (moneyTransaction.incomeOrExpense == incomeOrExpense &&
+        if (moneyTransaction.expenseOrIncome == incomeOrExpense &&
             (moneyTransaction.dateTime.isAfter(from) ||
                 moneyTransaction.dateTime.isAtSameMomentAs(from))) {
           result += moneyTransaction.value;
@@ -150,7 +150,7 @@ class MoneyTransactions implements Comparable {
     /// Both [from] and [until] are specified.
     if (from != null && until != null) {
       for (final MoneyTransaction moneyTransaction in _history) {
-        if (moneyTransaction.incomeOrExpense == incomeOrExpense &&
+        if (moneyTransaction.expenseOrIncome == incomeOrExpense &&
             (moneyTransaction.dateTime.isAfter(from) ||
                 moneyTransaction.dateTime.isAtSameMomentAs(from)) &&
             (moneyTransaction.dateTime.isBefore(until) ||
