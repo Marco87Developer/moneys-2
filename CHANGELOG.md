@@ -16,7 +16,7 @@
 <sup><sub>Release date: 2021-02-23.</sub></sup>
 
 * **Breaking change.** Changed the `Payment` class name into `Transaction`. This is because the word “payment” conveys the idea of an expense, while the `Payment` class aims to represent both expenses and income.
-* Added `String budgetName`, `String description`, `Place place` (`Place` class id from [geos](https://pub.dev/packages/geos) package) and `List<String> tags` fields to the `Transaction` class.
+* Added `String budgetName`, `String description`, `Place place` (`Place` class is from [geos](https://pub.dev/packages/geos) package) and `List<String> tags` fields to the `Transaction` class.
 
 # 1.0.1
 

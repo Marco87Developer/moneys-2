@@ -13,10 +13,11 @@ const String _transactionsKey = 'transactions';
 
 /// This class models a budget.
 ///
+@immutable
 class Budget implements Comparable {
   /// A budget.
   ///
-  Budget({
+  const Budget({
     required this.name,
     required this.renewal,
     required this.size,

@@ -8,6 +8,7 @@ const String _currencyKey = 'currency';
 
 /// This class models a reference to a money.
 ///
+@immutable
 class Money implements Comparable {
   /// A reference to a money.
   ///

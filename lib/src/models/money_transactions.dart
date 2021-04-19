@@ -26,7 +26,7 @@ class MoneyTransactions implements Comparable {
 
   final SplayTreeSet<MoneyTransaction> _history = SplayTreeSet();
 
-  /// Returns an unmodifiable `List` of the *entire* [history] of the
+  /// Returns an unmodifiable `List` of the *entire* history of the
   /// transactions.
   ///
   List<MoneyTransaction> get history => List.unmodifiable(_history.toList());

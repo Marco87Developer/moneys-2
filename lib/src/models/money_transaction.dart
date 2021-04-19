@@ -20,6 +20,7 @@ const String _valueKey = 'value';
 
 /// This class models a representation of a money transaction.
 ///
+@immutable
 class MoneyTransaction implements Comparable {
   /// Representation of a money transaction.
   ///
