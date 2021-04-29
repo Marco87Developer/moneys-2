@@ -1,3 +1,17 @@
+# 1.3.1
+
+<sup><sub>Release date: 2021-04-28.</sub></sup>
+
+* Added the `ExchangeRate` class. This class stores the rate value in order to convert a money of a currency into a money of another one.
+* Added the `convert()` method to the `Money` class.
+
+# 1.3.0
+
+<sup><sub>Release date: 2021-04-22.</sub></sup>
+
+* Changed `MoneyTransactions.fromListOfMaps(List<Map<String, dynamic>> listOfMaps)` method in order to accept a `List<dynamic> listOfMaps` parameter.
+* Fixed money_transactions_test.
+
 # 1.2.1
 
 <sup><sub>Release date: 2021-04-12.</sub></sup>

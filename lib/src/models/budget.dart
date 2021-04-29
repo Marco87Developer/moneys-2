@@ -302,10 +302,10 @@ class Budget implements Comparable {
   ///
   Map<String, dynamic> toMap() => {
         _nameKey: name,
-        _transactionsKey: transactions.toListOfMaps(),
         _renewalKey: renewal.string(),
         _sizeKey: '$size',
         _startKey: start.toIso8601String(),
+        _transactionsKey: transactions.toListOfMaps(),
       };
 
   /// The order of the comparisons is:

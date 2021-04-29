@@ -20,6 +20,8 @@ Money(
 )
 ```
 
+Also, `convert()` method allows to convert a money of a currency into a money of another one.
+
 ## `Currency` enumeration
 
 In this enumeration are enumerated all the currencies of the world, according to [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html). For each currency, it make available some properties:
@@ -32,6 +34,10 @@ In this enumeration are enumerated all the currencies of the world, according to
 * `symbol`. This is symbol used for the currency.
 
 Thanks to the `StringToCurrencyX` extension (`on String`) makes available the `toCurrency()` method, which allows to determine the `Currency` value from a string.
+
+## `ExchangeRate` class
+
+This class stores the rate value in order to convert a money of a currency into a money of another one.
 
 ## `MoneyTransaction` and `MoneyTransactions` classes
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../enumerations/currency.dart';
+import 'exchange_rate.dart';
 
 const String _amountKey = 'amount';
 const String _currencyKey = 'currency';
@@ -30,6 +31,24 @@ class Money implements Comparable {
 
   /// The currency of this money.
   final Currency currency;
+
+  /// Converts the value of this money to the currency expressed by [rate]`.to`.
+  ///
+  Money convert({
+    required ExchangeRate rate,
+  }) {
+    if (rate.to == currency) return this;
+
+    if (rate.from != currency)
+      throw ArgumentError(
+          'The base currency of the rate is different from the currency of this'
+          ' money. Change the rate with one which has the same currency.');
+
+    return Money(
+      amount: amount * rate.value,
+      currency: rate.to,
+    );
+  }
 
   /// Returns the money representation in order to show it in the UI.
   ///

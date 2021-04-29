@@ -3,8 +3,6 @@ import 'package:moneys/moneys.dart';
 import 'package:moneys/src/models/money_transactions.dart';
 
 void main() {
-  final MoneyTransactions moneyTransactions = MoneyTransactions();
-
   final MoneyTransaction moneyTransaction1 = MoneyTransaction(
     dateTime: DateTime(2020, 2, 27, 13, 27),
     description: 'Transaction 1',
@@ -50,13 +48,13 @@ void main() {
     ),
   );
 
-  final List<Map<String, dynamic>> listOfMaps = [
+  final List<dynamic> listOfMaps = [
     {
       'budgetName': '',
       'dateTime': '2020-02-27T13:27:00.000',
       'description': 'Transaction 1',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'Google Pay',
       'place': {
         'address': '',
@@ -73,7 +71,7 @@ void main() {
       'dateTime': '2020-02-15T15:30:00.000',
       'description': 'Transaction 3',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -90,7 +88,7 @@ void main() {
       'dateTime': '2020-03-15T15:30:00.000',
       'description': 'Transaction 2',
       'id': 'unique id',
-      'incomeOrExpense': 'expense',
+      'expenseOrIncome': 'expense',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -107,7 +105,7 @@ void main() {
       'dateTime': '2020-01-10T00:00:00.000',
       'description': 'Transaction 4',
       'id': 'unique id',
-      'incomeOrExpense': 'expense',
+      'expenseOrIncome': 'expense',
       'method': 'Google Pay',
       'place': {
         'address': '',
@@ -121,13 +119,13 @@ void main() {
     },
   ];
 
-  final List<Map<String, dynamic>> orderedListOfMaps = [
+  final List<dynamic> orderedListOfMaps = [
     {
       'budgetName': '',
       'dateTime': '2020-01-10T00:00:00.000',
       'description': 'Transaction 4',
       'id': 'unique id',
-      'incomeOrExpense': 'expense',
+      'expenseOrIncome': 'expense',
       'method': 'Google Pay',
       'place': {
         'address': '',
@@ -144,7 +142,7 @@ void main() {
       'dateTime': '2020-02-15T15:30:00.000',
       'description': 'Transaction 3',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -161,7 +159,7 @@ void main() {
       'dateTime': '2020-02-27T13:27:00.000',
       'description': 'Transaction 1',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'Google Pay',
       'place': {
         'address': '',
@@ -178,7 +176,7 @@ void main() {
       'dateTime': '2020-03-15T15:30:00.000',
       'description': 'Transaction 2',
       'id': 'unique id',
-      'incomeOrExpense': 'expense',
+      'expenseOrIncome': 'expense',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -193,7 +191,7 @@ void main() {
   ];
 
   test('Transactions.fromListOfMaps()', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3)
@@ -203,7 +201,7 @@ void main() {
   });
 
   test('To List<Map<String, dynamic>>', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3)
@@ -213,7 +211,9 @@ void main() {
   });
 
   test('add() and history', () {
-    moneyTransactions..add(moneyTransaction1)..add(moneyTransaction2);
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
+      ..add(moneyTransaction1)
+      ..add(moneyTransaction2);
 
     expect(moneyTransactions.history, [moneyTransaction1, moneyTransaction2]);
 
@@ -224,7 +224,7 @@ void main() {
   });
 
   test('remove() and history', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3)
@@ -236,7 +236,7 @@ void main() {
   test(
       'madeAtDateTime() and madeAtDateTimeOrBefore() and'
       ' madeAtDateTimeOrAfter()', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3);
@@ -256,7 +256,7 @@ void main() {
   });
 
   test('total()', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3);
@@ -294,7 +294,7 @@ void main() {
   });
 
   test('whoseMethodWas()', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3)
@@ -307,7 +307,7 @@ void main() {
   test(
       'withValueLessThan(), withValueLessThanOrEqualTo(),'
       ' withValueGreaterThanOrEqualTo() and withValueGreaterThan()', () {
-    moneyTransactions
+    final MoneyTransactions moneyTransactions = MoneyTransactions()
       ..add(moneyTransaction1)
       ..add(moneyTransaction2)
       ..add(moneyTransaction3)
