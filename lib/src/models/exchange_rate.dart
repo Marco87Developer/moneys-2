@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../enumerations/currency.dart';
 
+const String _dateTimeKey = 'dateTime';
 const String _fromKey = 'from';
 const String _toKey = 'to';
 const String _valueKey = 'value';
@@ -13,6 +14,7 @@ class ExchangeRate implements Comparable {
   /// A reference exchange rate from [from] currency to [to] currency.
   ///
   const ExchangeRate({
+    required this.dateTime,
     required this.from,
     required this.to,
     required this.value,
@@ -23,9 +25,13 @@ class ExchangeRate implements Comparable {
   /// This can be useful for retrieving the instance from a database.
   ///
   ExchangeRate.fromMap(Map<String, dynamic> map)
-      : from = '${map[_fromKey]}'.toCurrency(),
+      : dateTime = DateTime.parse(map[_dateTimeKey]),
+        from = '${map[_fromKey]}'.toCurrency(),
         to = '${map[_toKey]}'.toCurrency(),
         value = map[_valueKey];
+
+  /// Date and time in which the rate was retrieved.
+  final DateTime dateTime;
 
   /// The base currency.
   final Currency from;
@@ -41,6 +47,7 @@ class ExchangeRate implements Comparable {
   /// This can be useful for saving the instance in a database.
   ///
   Map<String, dynamic> toMap() => {
+        _dateTimeKey: dateTime.toIso8601String(),
         _fromKey: from.string(),
         _toKey: to.string(),
         _valueKey: value,
@@ -48,27 +55,32 @@ class ExchangeRate implements Comparable {
 
   /// The order of the comparisons is:
   ///
-  /// 1. [from]
-  /// 2. [to]
-  /// 3. [value]
+  /// 1. [dateTime]
+  /// 2. [from]
+  /// 3. [to]
+  /// 4. [value]
   ///
   @override
   int compareTo(covariant ExchangeRate other) {
     // 1º comparison
-    final int comparison1 = from.string().compareTo(other.from.string());
+    final int comparison1 = dateTime.compareTo(other.dateTime);
     if (comparison1 != 0) return comparison1;
 
     // 2º comparison
-    final int comparison2 = to.string().compareTo(other.to.string());
+    final int comparison2 = from.string().compareTo(other.from.string());
     if (comparison2 != 0) return comparison2;
 
+    // 3º comparison
+    final int comparison3 = to.string().compareTo(other.to.string());
+    if (comparison3 != 0) return comparison3;
+
     // Last comparison
-    final int comparison3 = value.compareTo(other.value);
-    return comparison3;
+    final int comparison4 = value.compareTo(other.value);
+    return comparison4;
   }
 
   @override
-  int get hashCode => hashValues(from, to, value);
+  int get hashCode => hashValues(dateTime, from, to, value);
 
   /// Returns if this instance is less than the [other].
   ///

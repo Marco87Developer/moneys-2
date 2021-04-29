@@ -1,3 +1,9 @@
+# 1.3.2
+
+<sup><sub>Release date: 2021-04-29.</sub></sup>
+
+* Added `dateTime` property to `ExchangeRate` class. This represents the date and the time in which the rate was retrieved.
+
 # 1.3.1+1
 
 <sup><sub>Release date: 2021-04-29.</sub></sup>
