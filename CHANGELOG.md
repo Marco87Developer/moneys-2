@@ -1,3 +1,9 @@
+# 1.3.3
+
+<sup><sub>Release date: 2021-05-05.</sub></sup>
+
+* Added `MoneyTransactions.fromListOfMoneyTransaction(List<MoneyTransaction> listOfMoneyTransaction)` constructor to the `MoneyTransactions` class.
+
 # 1.3.2
 
 <sup><sub>Release date: 2021-04-29.</sub></sup>

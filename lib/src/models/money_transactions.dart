@@ -18,10 +18,21 @@ class MoneyTransactions implements Comparable {
   /// Returns a instance of `MoneyTransactions` with the history contained in
   /// the [listOfMaps].
   ///
-  MoneyTransactions.fromListOfMaps(List<dynamic> listOfMaps) {
-    listOfMaps.forEach((element) {
+  MoneyTransactions.fromListOfMaps(
+    List<dynamic> listOfMaps,
+  ) {
+    for (final dynamic element in listOfMaps) {
       _history.add(MoneyTransaction.fromMap(element as Map<String, dynamic>));
-    });
+    }
+  }
+
+  /// Returns a instance of `MoneyTransactions` with the history contained in
+  /// the [listOfMoneyTransaction].
+  ///
+  MoneyTransactions.fromListOfMoneyTransaction(
+    List<MoneyTransaction> listOfMoneyTransaction,
+  ) {
+    listOfMoneyTransaction.forEach(_history.add);
   }
 
   final SplayTreeSet<MoneyTransaction> _history = SplayTreeSet();
