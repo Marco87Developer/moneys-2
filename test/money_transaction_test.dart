@@ -12,7 +12,7 @@ void main() {
       'dateTime': '2020-02-27T13:27:00.000',
       'description': 'Transaction from map',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -33,7 +33,7 @@ void main() {
         id: 'unique id',
         expenseOrIncome: ExpenseOrIncome.income,
         method: MoneyTransactionMethod.debitCard,
-        value: Money(
+        value: const Money(
           amount: 10000.5,
           currency: Currency.eur,
         ),
@@ -48,7 +48,7 @@ void main() {
       id: 'unique id',
       expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
-      value: Money(
+      value: const Money(
         amount: 10000.5,
         currency: Currency.eur,
       ),
@@ -59,7 +59,7 @@ void main() {
       'dateTime': '2020-02-27T13:27:00.000',
       'description': 'Transaction to map',
       'id': 'unique id',
-      'incomeOrExpense': 'income',
+      'expenseOrIncome': 'income',
       'method': 'debit card',
       'place': {
         'address': '',
@@ -91,7 +91,7 @@ void main() {
       id: 'unique id',
       expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
-      value: Money(
+      value: const Money(
         amount: 15000,
         currency: Currency.eur,
       ),
@@ -102,7 +102,7 @@ void main() {
       id: 'unique id',
       expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
-      value: Money(
+      value: const Money(
         amount: 15000,
         currency: Currency.eur,
       ),
@@ -113,7 +113,7 @@ void main() {
       id: 'unique id',
       expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.applePay,
-      value: Money(
+      value: const Money(
         amount: 10000.5,
         currency: Currency.eur,
       ),

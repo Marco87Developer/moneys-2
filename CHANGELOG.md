@@ -1,3 +1,15 @@
+# 1.3.5
+
+<sup><sub>Release date: 2021-05-06.</sub></sup>
+
+* Fixed a minor issue.
+
+# 1.3.4
+
+<sup><sub>Release date: 2021-05-06.</sub></sup>
+
+* In the `MoneyTransaction.fromMap(Map<String, dynamic> map)` constructor, the `List<dynamic> map['tags']` list is now casted `as List<String>`.
+
 # 1.3.3
 
 <sup><sub>Release date: 2021-05-05.</sub></sup>

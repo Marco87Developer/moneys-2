@@ -53,7 +53,7 @@ class MoneyTransaction implements Comparable {
         expenseOrIncome = '${map[_expenseOrIncomeKey]}'.toExpenseOrIncome(),
         method = '${map[_methodKey]}'.toMoneyTransactionMethod(),
         place = Place.fromMap(map[_placeKey]),
-        _tags = map[_tagsKey],
+        _tags = (map[_tagsKey] as List<dynamic>).map((e) => '$e').toList(),
         value = '${map[_valueKey]}'.toMoney();
 
   /// The name of the budget associated with this transaction.
@@ -89,7 +89,9 @@ class MoneyTransaction implements Comparable {
 
   /// Add a [tag] to the list of the tags for this place.
   void addTag(String tag) {
-    if (!_tags.contains(tag)) _tags.add(tag);
+    if (!_tags.contains(tag)) {
+      _tags.add(tag);
+    }
     _tags.sort();
   }
 

@@ -27,10 +27,13 @@ extension StringToExpenseOrIncomeX on String {
   /// Converts this string into the corresponding `ExpenseOrIncome` value.
   ///
   ExpenseOrIncome toExpenseOrIncome() {
-    for (final ExpenseOrIncome expenseOrIncome in ExpenseOrIncome.values)
-      if (this == expenseOrIncome.string()) return expenseOrIncome;
+    for (final ExpenseOrIncome expenseOrIncome in ExpenseOrIncome.values) {
+      if (this == expenseOrIncome.string()) {
+        return expenseOrIncome;
+      }
+    }
 
-    throw FormatException(
+    throw const FormatException(
         'The string does not contains a valid ExpenseOrIncome representation.');
   }
 }
