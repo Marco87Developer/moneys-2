@@ -71,7 +71,7 @@ void main() {
     const Money money4 = Money(amount: 5000, currency: Currency.gbp);
 
     expect(money1 - money2, const Money(amount: 5000, currency: Currency.cad));
-    expect(() => money2 - money1, throwsFormatException);
+    expect(money2 - money1, const Money(amount: -5000, currency: Currency.cad));
     expect(money1 - money3, const Money(amount: 0, currency: Currency.cad));
     expect(() => money1 - money4, throwsFormatException);
 

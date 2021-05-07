@@ -53,6 +53,61 @@ extension ListMoneyTransactionX on List<MoneyTransaction> {
     ];
   }
 
+  /// Normalizes all values to the same [currency]. For this, [exchangeRates]
+  /// list must contain all the exchange rates necessary for conversions. If
+  /// even one of these is missing, throws a `FormatException`.
+  ///
+  /// The result list is sorted.
+  ///
+  List<MoneyTransaction> normalize({
+    required Currency currency,
+    List<ExchangeRate>? exchangeRates,
+  }) {
+    final List<MoneyTransaction> normalized = [];
+
+    if (exchangeRates != null && exchangeRates.isNotEmpty) {
+      for (final MoneyTransaction transaction in this) {
+        if (transaction.value.currency == currency) {
+          normalized.add(transaction);
+        } else {
+          final ExchangeRate? rate = exchangeRates.getExchangeRate(
+            from: transaction.value.currency,
+            to: currency,
+          );
+
+          if (rate == null) {
+            throw const FormatException(
+                'exchangeRates list does not contain the exchange rate to carry'
+                ' out the conversion.');
+          }
+
+          normalized.add(
+            transaction.copyWith(
+              value: Money(
+                amount: transaction.value.convert(rate: rate).amount,
+                currency: currency,
+              ),
+            ),
+          );
+        }
+      }
+    } else {
+      for (final MoneyTransaction transaction in this) {
+        if (transaction.value.currency == currency) {
+          normalized.add(transaction);
+        } else {
+          throw const FormatException(
+              'exchangeRates list does not contain the exchange rate to carry'
+              ' out the conversion.');
+        }
+      }
+    }
+
+    normalized.sort();
+
+    return normalized;
+  }
+
   /// Calculates and returns the sum of all transactions of this list. Also,
   /// allows to perform the sum of only expenses or only income. It is also
   /// possible to limit the sum to a time interval.
@@ -89,143 +144,234 @@ extension ListMoneyTransactionX on List<MoneyTransaction> {
             .toList()
       ..sort();
 
-    final List<Money> normalized = [];
+    final List<MoneyTransaction> normalizedTransactions = listUntil.normalize(
+      currency: currency,
+      exchangeRates: exchangeRates,
+    );
 
-    print('ℹ Exchange rate length: ${exchangeRates?.length}');
+    final List<Money> expenseValues = normalizedTransactions
+        .where((t) => t.expenseOrIncome == ExpenseOrIncome.expense)
+        .map<Money>((t) => t.value)
+        .toList()
+          ..sort();
+    final List<Money> incomeValues = normalizedTransactions
+        .where((t) => t.expenseOrIncome == ExpenseOrIncome.income)
+        .map<Money>((t) => t.value)
+        .toList()
+          ..sort();
 
-    if (exchangeRates != null && exchangeRates.isNotEmpty) {
-      print('ℹ Exchange is not null nor empty.');
-
-      for (final MoneyTransaction transaction in listUntil) {
-        if (transaction.value.currency == currency) {
-          normalized.add(
-            Money(
-              amount: transaction.expenseOrIncome == ExpenseOrIncome.income
-                  ? transaction.value.amount
-                  : -transaction.value.amount,
-              currency: currency,
-            ),
-          );
-        } else {
-          final ExchangeRate? rate = exchangeRates.getExchangeRate(
-            from: transaction.value.currency,
-            to: currency,
-          );
-
-          String fromString = transaction.value.currency.string();
-          String toString = currency.string();
-
-          if (rate == null) {
-            /// TODO: Remove this print() statement
-            print('ℹ FormatException $fromString to $toString');
-            throw const FormatException(
-                'exchangeRates list does not contain the exchange rate to carry'
-                ' out the conversion.');
-          }
-
-          normalized.add(
-            Money(
-              amount: transaction.expenseOrIncome == ExpenseOrIncome.income
-                  ? transaction.value.convert(rate: rate).amount
-                  : -transaction.value.convert(rate: rate).amount,
-              currency: currency,
-            ),
-          );
-        }
-      }
-    } else {
-      for (final MoneyTransaction transaction in listUntil) {
-        if (transaction.value.currency == currency) {
-          normalized.add(
-            Money(
-              amount: transaction.expenseOrIncome == ExpenseOrIncome.income
-                  ? transaction.value.amount
-                  : -transaction.value.amount,
-              currency: currency,
-            ),
-          );
-        } else {
-          throw const FormatException(
-              'exchangeRates list does not contain the exchange rate to carry'
-              ' out the conversion.');
-        }
-      }
-    }
-
-    Money result = normalized.fold<Money>(
+    final Money expenseTotal = expenseValues.fold<Money>(
+      Money(amount: 0, currency: currency),
+      (previousValue, money) => previousValue + money,
+    );
+    final Money incomeTotal = incomeValues.fold<Money>(
       Money(amount: 0, currency: currency),
       (previousValue, money) => previousValue + money,
     );
 
-    return Money(
-      amount: result.amount >= 0 ? result.amount : -result.amount,
-      currency: currency,
-    );
+    if (expenseOrIncome == ExpenseOrIncome.expense) {
+      return expenseTotal;
+    } else {
+      return incomeTotal - expenseTotal;
+    }
   }
 
-  /// Returns an unmodifiable list of all the transactions in whose method was
-  /// [method].
+  /// Returns a filtered list of all the transactions in whose method was
+  /// [method]. The result is already sorted.
   ///
-  List<MoneyTransaction> whoseMethodWas(MoneyTransactionMethod method) {
-    final List<MoneyTransaction> filtered =
+  /// If a normalized list is expected as a result, it is possible to set
+  /// [normalized] equal to `true`. In this case, the [currency] parameter must
+  /// also be specified, otherwise a `FormatException` will be thrown. The
+  /// [exchangeRates] parameter is also expected to be specified.
+  ///
+  List<MoneyTransaction> whoseMethodWas({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    required MoneyTransactionMethod method,
+    bool normalized = false,
+  }) {
+    if (normalized && currency == null) {
+      throw const FormatException(
+          'whoseMethodWas: You cannot normalize a list without specifying the'
+          ' currency against which you want to normalize it.');
+    }
+
+    final result =
         where((moneyTransaction) => moneyTransaction.method == method).toList()
           ..sort();
 
-    return List.unmodifiable(filtered);
+    if (normalized && currency != null) {
+      return result.normalize(
+        currency: currency,
+        exchangeRates: exchangeRates,
+      );
+    }
+
+    return result;
   }
 
-  /// Return an unmodifiable list of all the transactions with a value =
-  /// [value].
+  /// Return a filtered list of all the transactions with a value = [value].
   ///
-  List<MoneyTransaction> withValueEqualTo(Money value) {
-    final List<MoneyTransaction> filtered =
-        where((moneyTransaction) => moneyTransaction.value == value).toList()
-          ..sort();
-
-    return List.unmodifiable(filtered);
-  }
-
-  /// Return an unmodifiable list of all the transactions with a value >
-  /// [value].
+  /// Before filtering the transactions, this list is normalized to the
+  /// [currency] or, when this is `null`, to the currency of the [value]. Also,
+  /// the result is already sorted.
   ///
-  List<MoneyTransaction> withValueGreaterThan(Money value) {
-    final List<MoneyTransaction> filtered =
-        where((moneyTransaction) => moneyTransaction.value > value).toList()
-          ..sort();
+  List<MoneyTransaction> withValueEqualTo({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) =>
+      _valueFilter(
+        comparison: (actual, target) => actual == target,
+        currency: currency,
+        exchangeRates: exchangeRates,
+        normalized: normalized,
+        value: value,
+      );
 
-    return List.unmodifiable(filtered);
-  }
-
-  /// Return an unmodifiable list of all the transactions with a value >=
-  /// [value].
+  /// Return a filtered list of all the transactions with a value > [value].
   ///
-  List<MoneyTransaction> withValueGreaterThanOrEqualTo(Money value) {
-    final List<MoneyTransaction> filtered =
-        where((moneyTransaction) => moneyTransaction.value >= value).toList()
-          ..sort();
-
-    return List.unmodifiable(filtered);
-  }
-
-  /// Return an unmodifiable list of all the transactions with a value <
-  /// [value].
+  /// Before filtering the transactions, this list is normalized to the currency
+  /// of the [value]. Also, the result is already sorted.
   ///
-  List<MoneyTransaction> withValueLessThan(Money value) {
-    final List<MoneyTransaction> filtered =
-        where((moneyTransaction) => moneyTransaction.value < value).toList()
-          ..sort();
+  List<MoneyTransaction> withValueGreaterThan({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) =>
+      _valueFilter(
+        comparison: (actual, target) => actual > target,
+        currency: currency,
+        exchangeRates: exchangeRates,
+        normalized: normalized,
+        value: value,
+      );
 
-    return List.unmodifiable(filtered);
-  }
-
-  /// Return an unmodifiable list of all the transactions with a value <=
-  /// [value].
+  /// Return a filtered list of all the transactions with a value >= [value].
   ///
-  List<MoneyTransaction> withValueLessThanOrEqualTo(Money value) {
-    final List<MoneyTransaction> filtered =
-        where((moneyTransaction) => moneyTransaction.value <= value).toList()
-          ..sort();
+  /// Before filtering the transactions, this list is normalized to the currency
+  /// of the [value]. Also, the result is already sorted.
+  ///
+  List<MoneyTransaction> withValueGreaterThanOrEqualTo({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) =>
+      _valueFilter(
+        comparison: (actual, target) => actual >= target,
+        currency: currency,
+        exchangeRates: exchangeRates,
+        normalized: normalized,
+        value: value,
+      );
 
-    return List.unmodifiable(filtered);
+  /// Return a filtered list of all the transactions with a value < [value].
+  ///
+  /// Before filtering the transactions, this list is normalized to the currency
+  /// of the [value]. Also, the result is already sorted.
+  ///
+  List<MoneyTransaction> withValueLessThan({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) =>
+      _valueFilter(
+        comparison: (actual, target) => actual < target,
+        currency: currency,
+        exchangeRates: exchangeRates,
+        normalized: normalized,
+        value: value,
+      );
+
+  /// Return a filtered list of all the transactions with a value <= [value].
+  ///
+  /// Before filtering the transactions, this list is normalized to the currency
+  /// of the [value]. Also, the result is already sorted.
+  ///
+  List<MoneyTransaction> withValueLessThanOrEqualTo({
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) =>
+      _valueFilter(
+        comparison: (actual, target) => actual <= target,
+        currency: currency,
+        exchangeRates: exchangeRates,
+        normalized: normalized,
+        value: value,
+      );
+
+  /// Return a filtered list of all the transactions as expressed by
+  /// [comparison] function.
+  ///
+  /// Before filtering the transactions, this list is normalized to the
+  /// [currency] or, when this is `null`, to the currency of the [value]. Also,
+  /// the result is already sorted.
+  ///
+  List<MoneyTransaction> _valueFilter({
+    required bool Function(Money actual, Money target) comparison,
+    Currency? currency,
+    List<ExchangeRate>? exchangeRates,
+    bool normalized = false,
+    required Money value,
+  }) {
+    final Currency actualCurrency = currency ?? value.currency;
+
+    Money actualValue;
+
+    if (value.currency != actualCurrency) {
+      final ExchangeRate? rate = exchangeRates?.getExchangeRate(
+        from: value.currency,
+        to: actualCurrency,
+      );
+
+      if (rate == null) {
+        throw const FormatException(
+            'withValueEqualTo: exchangeRates does not contain the needed rate.');
+      }
+
+      actualValue = value.convert(rate: rate);
+    } else {
+      actualValue = value;
+    }
+
+    final List<MoneyTransaction> filtered = where((t) {
+      if (t.value.currency == actualCurrency) {
+        return comparison(t.value, actualValue);
+      }
+
+      if (exchangeRates == null || exchangeRates.isEmpty)
+        throw const FormatException(
+            'withValueEqualTo: It is necessary to convert the value of this'
+            ' transaction, but the exchangeRates parameter is null or its list'
+            ' is empty.');
+
+      final ExchangeRate? rate = exchangeRates.getExchangeRate(
+        from: t.value.currency,
+        to: actualCurrency,
+      );
+
+      if (rate == null) {
+        throw const FormatException(
+            'withValueEqualTo: It is necessary to convert the value of this'
+            ' transaction, but the exchangeRates does not contain the exchange'
+            ' rate to carry out the conversion.');
+      }
+
+      return comparison(t.value.convert(rate: rate), actualValue);
+    }).toList()
+      ..sort();
+
+    return normalized
+        ? filtered.normalize(
+            currency: actualCurrency,
+            exchangeRates: exchangeRates,
+          )
+        : filtered;
   }
 }

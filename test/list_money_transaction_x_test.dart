@@ -53,6 +53,43 @@ void main() {
     ),
   );
 
+  final rateEurCop = ExchangeRate(
+    dateTime: DateTime(2021, 5, 1),
+    from: Currency.eur,
+    to: Currency.cop,
+    value: 4500,
+  );
+  final rateCopEur = ExchangeRate(
+    dateTime: DateTime(2021, 5, 1),
+    from: Currency.cop,
+    to: Currency.eur,
+    value: 1 / 4500,
+  );
+  final rateEurUsd = ExchangeRate(
+    dateTime: DateTime(2021, 5, 7),
+    from: Currency.eur,
+    to: Currency.usd,
+    value: 1.2,
+  );
+  final rateUsdEur = ExchangeRate(
+    dateTime: DateTime(2021, 5, 7),
+    from: Currency.usd,
+    to: Currency.eur,
+    value: 1 / 1.2,
+  );
+  final rateUsdCop = ExchangeRate(
+    dateTime: DateTime(2021, 5, 5),
+    from: Currency.usd,
+    to: Currency.cop,
+    value: 3800,
+  );
+  final rateCopUsd = ExchangeRate(
+    dateTime: DateTime(2021, 5, 5),
+    from: Currency.cop,
+    to: Currency.usd,
+    value: 1 / 3800,
+  );
+
   test('addMoneyTransaction()', () {
     final List<MoneyTransaction> list = [
       transaction3,
@@ -102,10 +139,6 @@ void main() {
   test('toListOfMaps()', () {
     final List<MoneyTransaction> list1 = [
       transaction2,
-      transaction1,
-    ];
-    final List<MoneyTransaction> list2 = [
-      transaction4,
       transaction1,
     ];
 
@@ -158,37 +191,6 @@ void main() {
       transaction2,
     ];
 
-    final rateEurCop = ExchangeRate(
-      dateTime: DateTime(2021, 5, 1),
-      from: Currency.eur,
-      to: Currency.cop,
-      value: 4500,
-    );
-    final rateCopEur = ExchangeRate(
-      dateTime: DateTime(2021, 5, 1),
-      from: Currency.cop,
-      to: Currency.eur,
-      value: 1 / 4500,
-    );
-    final rateEurUsd = ExchangeRate(
-      dateTime: DateTime(2021, 5, 7),
-      from: Currency.eur,
-      to: Currency.usd,
-      value: 1.2,
-    );
-    final rateUsdEur = ExchangeRate(
-      dateTime: DateTime(2021, 5, 7),
-      from: Currency.usd,
-      to: Currency.eur,
-      value: 1 / 1.2,
-    );
-    final rateUsdCop = ExchangeRate(
-      dateTime: DateTime(2021, 5, 5),
-      from: Currency.usd,
-      to: Currency.cop,
-      value: 3800,
-    );
-
     final rates = [
       rateCopEur,
       rateEurUsd,
@@ -239,6 +241,278 @@ void main() {
     expect(
       '$totalExpensesBetween',
       '$calculatedTotalExpensesBetween',
+    );
+
+    expect(
+      () => list.total(
+        currency: Currency.eur,
+        expenseOrIncome: ExpenseOrIncome.expense,
+        from: DateTime(2021, 5, 9),
+        until: DateTime(2021, 5, 11),
+      ),
+      throwsFormatException,
+    );
+  });
+
+  test('whoseMethodWas()', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateCopEur,
+    ];
+    final transaction2Eur = MoneyTransaction(
+      dateTime: DateTime(2021, 5, 10),
+      description: 'Description 2',
+      expenseOrIncome: ExpenseOrIncome.expense,
+      id: '2021-05-10',
+      method: MoneyTransactionMethod.debitCard,
+      value: const Money(
+        amount: 500000 / 4500,
+        currency: Currency.eur,
+      ),
+    );
+
+    expect(
+      list.whoseMethodWas(method: MoneyTransactionMethod.debitCard),
+      [transaction2],
+    );
+    expect(
+      list.whoseMethodWas(method: MoneyTransactionMethod.bankTransfer),
+      [transaction3, transaction1],
+    );
+    expect(
+      list.whoseMethodWas(
+        method: MoneyTransactionMethod.debitCard,
+        normalized: true,
+        currency: Currency.eur,
+        exchangeRates: rates,
+      ),
+      [transaction2Eur],
+    );
+  });
+
+  test('withValueEqualTo', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateCopEur,
+      rateUsdEur,
+    ];
+
+    expect(
+      list.withValueEqualTo(
+        exchangeRates: rates,
+        value: const Money(
+          amount: 500000 / 4500,
+          currency: Currency.eur,
+        ),
+      ),
+      [transaction2],
+    );
+  });
+
+  test('withValueGreaterThan', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateEurCop,
+      rateUsdCop,
+    ];
+
+    expect(
+      list.withValueGreaterThan(
+        exchangeRates: rates,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [transaction1],
+    );
+  });
+
+  test('withValueGreaterThanOrEqualTo', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateEurCop,
+      rateUsdCop,
+    ];
+
+    expect(
+      list.withValueGreaterThanOrEqualTo(
+        exchangeRates: rates,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [
+        transaction1,
+        transaction2,
+      ],
+    );
+  });
+
+  test('withValueLessThan()', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateEurCop,
+      rateUsdCop,
+      rateCopEur,
+      rateUsdEur,
+    ];
+
+    expect(
+      list.withValueLessThan(
+        exchangeRates: rates,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [
+        transaction3,
+        transaction4,
+      ],
+    );
+    expect(
+      list.withValueLessThan(
+        currency: Currency.eur,
+        exchangeRates: rates,
+        normalized: true,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [
+        MoneyTransaction(
+          dateTime: DateTime(2021, 5, 3),
+          description: 'Description 3',
+          expenseOrIncome: ExpenseOrIncome.income,
+          id: '2021-05-03',
+          method: MoneyTransactionMethod.bankTransfer,
+          value: const Money(
+            amount: 250000 / 4500,
+            currency: Currency.eur,
+          ),
+        ),
+        MoneyTransaction(
+          dateTime: DateTime(2021, 5, 4),
+          description: 'Description 4',
+          expenseOrIncome: ExpenseOrIncome.expense,
+          id: '2021-05-04',
+          method: MoneyTransactionMethod.creditCard,
+          value: const Money(
+            amount: 8.5 / 1.2,
+            currency: Currency.eur,
+          ),
+        ),
+      ],
+    );
+  });
+
+  test('withValueLessThanOrEqualTo()', () {
+    final List<MoneyTransaction> list = [
+      transaction1,
+      transaction2,
+      transaction3,
+      transaction4,
+    ];
+
+    final rates = [
+      rateEurCop,
+      rateUsdCop,
+      rateCopEur,
+      rateUsdEur,
+    ];
+
+    expect(
+      list.withValueLessThanOrEqualTo(
+        exchangeRates: rates,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [
+        transaction3,
+        transaction4,
+        transaction2,
+      ],
+    );
+    expect(
+      list.withValueLessThanOrEqualTo(
+        currency: Currency.eur,
+        exchangeRates: rates,
+        normalized: true,
+        value: const Money(
+          amount: 500000,
+          currency: Currency.cop,
+        ),
+      ),
+      [
+        MoneyTransaction(
+          dateTime: DateTime(2021, 5, 3),
+          description: 'Description 3',
+          expenseOrIncome: ExpenseOrIncome.income,
+          id: '2021-05-03',
+          method: MoneyTransactionMethod.bankTransfer,
+          value: const Money(
+            amount: 250000 / 4500,
+            currency: Currency.eur,
+          ),
+        ),
+        MoneyTransaction(
+          dateTime: DateTime(2021, 5, 4),
+          description: 'Description 4',
+          expenseOrIncome: ExpenseOrIncome.expense,
+          id: '2021-05-04',
+          method: MoneyTransactionMethod.creditCard,
+          value: const Money(
+            amount: 8.5 / 1.2,
+            currency: Currency.eur,
+          ),
+        ),
+        MoneyTransaction(
+          dateTime: DateTime(2021, 5, 10),
+          description: 'Description 2',
+          expenseOrIncome: ExpenseOrIncome.expense,
+          id: '2021-05-10',
+          method: MoneyTransactionMethod.debitCard,
+          value: const Money(
+            amount: 500000 / 4500,
+            currency: Currency.eur,
+          ),
+        ),
+      ],
     );
   });
 }

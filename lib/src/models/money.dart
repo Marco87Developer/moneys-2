@@ -167,13 +167,10 @@ class Money implements Comparable {
       ? throw const FormatException(
           'You cannot subtract a money with a currency from another money with'
           ' a different currency. Before subtracting, convert one of them.')
-      : amount < other.amount
-          ? throw const FormatException(
-              'You cannot subtract a money with an amount greater than this.')
-          : Money(
-              amount: amount - other.amount,
-              currency: currency,
-            );
+      : Money(
+          amount: amount - other.amount,
+          currency: currency,
+        );
 
   /// Defines the sum operator.
   ///

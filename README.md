@@ -39,13 +39,15 @@ Thanks to the `StringToCurrencyX` extension (`on String`) makes available the `t
 
 This class stores the rate value in order to convert a money of a currency into a money of another one.
 
-## `MoneyTransaction` and `MoneyTransactions` classes
+## `MoneyTransaction` classes
 
 The `MoneyTransaction` class records the date, the value, and the transaction method used. It also has a *required* parameter for transaction identification: `id`. You should guarantee its uniqueness.
 
 `MoneyTransaction` is characterized according to whether it is income or expense (`ExpenseOrIncome` enumeration is used). The method used is specified by the value of the `MoneyTransactionMethod` enumeration. The frequency of renewal of a transaction is specified by the value of the `Renewal` enumeration.
 
-The `MoneyTransactions` class makes it easy to manage the history of the transactions. It provides these features:
+### `List<MoneyTransaction>` extension methods
+
+These methods make it easy to manage the history of the transactions. These methods provide these features:
 
 * Get the entire history of transactions.
 * Add one transaction to the history.
@@ -59,7 +61,7 @@ The `MoneyTransactions` class makes it easy to manage the history of the transac
 
 ## `Budget` class
 
-Use the `Budget` class to manage a budget. Give it a `name`, specify how large it is (`size`), indicate what the `renewal` period is and from what date (`start`), and manage the list of `Moneytransactions` linked with this budget.
+Use the `Budget` class to manage a budget. Give it a `name`, specify how large it is (`size`), indicate what the `renewal` period is and from what date (`start`), and manage the `List<MoneyTransaction>` list of the transactions linked with this budget.
 
 Also, this class, has the following methods:
 

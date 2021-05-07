@@ -1,17 +1,25 @@
 # 2.0.0
 
-<sup><sub>Release date: 2021-05-06.</sub></sup>
+<sup><sub>Release date: 2021-05-07.</sub></sup>
 
 * **Breaking change.** The `MoneyTransactions` class has been removed. The methods of that class are now available as extension methods for `List<MoneyTransaction>`.
+* Added extension methods for `List<ExchangeRate>`.
+* Now in the `whoseMethodWas` (extension method on `List<MoneyTransaction>`) method it is possible to return a normalized list. Also, the result is already sorted.
+* The result of the following `List<MoneyTransaction>` extension methods is already normalized and sorted:
+  * `withValueEqualTo`.
+  * `withValueGreaterThan`.
+  * `withValueGreaterThanOrEqualTo`.
+  * `withValueLessThan`.
+  * `withValueLessThanOrEqualTo`.
 
 # 1.4.0
 
 <sup><sub>Release date: 2021-05-06.</sub></sup>
 
-* Added `copyWith(...)` to the `Budget` class.
-* Added `copyWith(...)` to the `ExchangeRate` class.
-* Added `copyWith(...)` to the `Money` class.
-* Added `copyWith(...)` to the `MoneyTransaction` class.
+* Added `copyWith` to the `Budget` class.
+* Added `copyWith` to the `ExchangeRate` class.
+* Added `copyWith` to the `Money` class.
+* Added `copyWith` to the `MoneyTransaction` class.
 
 # 1.3.5
 
