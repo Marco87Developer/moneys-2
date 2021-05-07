@@ -1,3 +1,18 @@
+# 2.0.0
+
+<sup><sub>Release date: 2021-05-06.</sub></sup>
+
+* **Breaking change.** The `MoneyTransactions` class has been removed. The methods of that class are now available as extension methods for `List<MoneyTransaction>`.
+
+# 1.4.0
+
+<sup><sub>Release date: 2021-05-06.</sub></sup>
+
+* Added `copyWith(...)` to the `Budget` class.
+* Added `copyWith(...)` to the `ExchangeRate` class.
+* Added `copyWith(...)` to the `Money` class.
+* Added `copyWith(...)` to the `MoneyTransaction` class.
+
 # 1.3.5
 
 <sup><sub>Release date: 2021-05-06.</sub></sup>

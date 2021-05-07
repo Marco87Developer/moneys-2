@@ -50,7 +50,7 @@ extension StringToRenewalX on String {
     for (final Renewal renewal in Renewal.values)
       if (this == renewal.string()) return renewal;
 
-    throw FormatException(
+    throw const FormatException(
         'The string does not contains a valid Renewal representation.');
   }
 }

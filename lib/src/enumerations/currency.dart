@@ -439,6 +439,7 @@ enum Currency {
   top,
 
   /// Turkish Lira (Turkey)
+  // ignore: constant_identifier_names
   try_,
 
   /// Trinidad and Tobago Dollar (Trinidad and Tobago)
@@ -906,37 +907,37 @@ extension CurrencyX on Currency {
       case Currency.xaf:
         return 0;
       case Currency.xag:
-        return null;
+        break;
       case Currency.xau:
-        return null;
+        break;
       case Currency.xba:
-        return null;
+        break;
       case Currency.xbb:
-        return null;
+        break;
       case Currency.xbc:
-        return null;
+        break;
       case Currency.xbd:
-        return null;
+        break;
       case Currency.xcd:
         return 2;
       case Currency.xdr:
-        return null;
+        break;
       case Currency.xof:
         return 2;
       case Currency.xpd:
-        return null;
+        break;
       case Currency.xpf:
         return 0;
       case Currency.xpt:
-        return null;
+        break;
       case Currency.xsu:
-        return null;
+        break;
       case Currency.xts:
-        return null;
+        break;
       case Currency.xua:
-        return null;
+        break;
       case Currency.xxx:
-        return null;
+        break;
       case Currency.yer:
         return 2;
       case Currency.zar:
@@ -2425,7 +2426,7 @@ extension StringToCurrencyX on String {
         return currency;
     }
 
-    throw FormatException(
+    throw const FormatException(
         'The string does not contains a valid (or unique) Currency'
         ' representation.');
   }

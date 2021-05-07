@@ -95,6 +95,26 @@ class MoneyTransaction implements Comparable {
     _tags.sort();
   }
 
+  /// Creates a copy of this `MoneyTransaction` instance where the only changes
+  /// are those specified in the parameters of this method.
+  ///
+  MoneyTransaction copyWith({
+    DateTime? dateTime,
+    String? description,
+    ExpenseOrIncome? expenseOrIncome,
+    String? id,
+    MoneyTransactionMethod? method,
+    Money? value,
+  }) =>
+      MoneyTransaction(
+        dateTime: dateTime ?? this.dateTime,
+        description: description ?? this.description,
+        expenseOrIncome: expenseOrIncome ?? this.expenseOrIncome,
+        id: id ?? this.id,
+        method: method ?? this.method,
+        value: value ?? this.value,
+      );
+
   /// Creates a `Map<String, dynamic> map` representation of this instance.
   ///
   /// This can be useful for saving the instance in a database.

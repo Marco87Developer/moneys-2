@@ -73,7 +73,7 @@ extension StringToMoneyTransactionMethodX on String {
       if (this == moneyTransactionMethod.string())
         return moneyTransactionMethod;
 
-    throw FormatException(
+    throw const FormatException(
         'The string does not contains a valid MoneyTransactionMethod '
         'representation.');
   }

@@ -42,6 +42,22 @@ class ExchangeRate implements Comparable {
   /// The value of the exchange rate.
   final double value;
 
+  /// Creates a copy of this `Budget` instance where the only changes are those
+  /// specified in the parameters of this method.
+  ///
+  ExchangeRate copyWith({
+    DateTime? dateTime,
+    Currency? from,
+    Currency? to,
+    double? value,
+  }) =>
+      ExchangeRate(
+        dateTime: dateTime ?? this.dateTime,
+        from: from ?? this.from,
+        to: to ?? this.to,
+        value: value ?? this.value,
+      );
+
   /// Creates a `Map<String, dynamic> map` representation of this instance.
   ///
   /// This can be useful for saving the instance in a database.

@@ -37,18 +37,33 @@ class Money implements Comparable {
   Money convert({
     required ExchangeRate rate,
   }) {
-    if (rate.to == currency) return this;
+    if (rate.to == currency) {
+      return this;
+    }
 
-    if (rate.from != currency)
+    if (rate.from != currency) {
       throw ArgumentError(
           'The base currency of the rate is different from the currency of this'
           ' money. Change the rate with one which has the same currency.');
+    }
 
     return Money(
       amount: amount * rate.value,
       currency: rate.to,
     );
   }
+
+  /// Creates a copy of this `Money` instance where the only changes are those
+  /// specified in the parameters of this method.
+  ///
+  Money copyWith({
+    double? amount,
+    Currency? currency,
+  }) =>
+      Money(
+        amount: amount ?? this.amount,
+        currency: currency ?? this.currency,
+      );
 
   /// Returns the money representation in order to show it in the UI.
   ///
@@ -109,10 +124,11 @@ class Money implements Comparable {
   ///
   @override
   int compareTo(covariant Money other) {
-    if (currency != other.currency)
-      throw FormatException(
+    if (currency != other.currency) {
+      throw const FormatException(
           'You cannot compare two moneys with different currencies. Before'
           ' comparing, convert one of them.');
+    }
 
     // Last comparison
     final int comparison1 = amount.compareTo(other.amount);
@@ -148,11 +164,11 @@ class Money implements Comparable {
   /// Defines the subtraction operator.
   ///
   Money operator -(covariant Money other) => other.currency != currency
-      ? throw FormatException(
+      ? throw const FormatException(
           'You cannot subtract a money with a currency from another money with'
           ' a different currency. Before subtracting, convert one of them.')
       : amount < other.amount
-          ? throw FormatException(
+          ? throw const FormatException(
               'You cannot subtract a money with an amount greater than this.')
           : Money(
               amount: amount - other.amount,
@@ -162,7 +178,7 @@ class Money implements Comparable {
   /// Defines the sum operator.
   ///
   Money operator +(covariant Money other) => other.currency != currency
-      ? throw FormatException(
+      ? throw const FormatException(
           'You cannot sum a money with a currency to another money with a'
           ' different currency. Before subtracting, convert one of them.')
       : Money(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../enumerations/currency.dart';
 import '../enumerations/expense_or_income.dart';
 import '../enumerations/renewal.dart';
+import '../extensions/list_money_transaction_x.dart';
 import '../models/money.dart';
-import '../models/money_transactions.dart';
+import 'exchange_rate.dart';
+import 'money_transaction.dart';
 
 const String _nameKey = 'name';
 const String _renewalKey = 'renewal';
@@ -34,7 +37,7 @@ class Budget implements Comparable {
         renewal = '${map[_renewalKey]}'.toRenewal(),
         size = '${map[_sizeKey]}'.toMoney(),
         start = DateTime.parse(map[_startKey]),
-        transactions = MoneyTransactions.fromListOfMaps(map[_transactionsKey]);
+        transactions = <MoneyTransaction>[].fromList(map[_transactionsKey]);
 
   /// The name that identifies this budget.
   final String name;
@@ -49,7 +52,25 @@ class Budget implements Comparable {
   final DateTime start;
 
   /// The history of all the transactions related with this budget.
-  final MoneyTransactions transactions;
+  final List<MoneyTransaction> transactions;
+
+  /// Creates a copy of this `Budget` instance where the only changes are those
+  /// specified in the parameters of this method.
+  ///
+  Budget copyWith({
+    String? name,
+    Renewal? renewal,
+    Money? size,
+    DateTime? start,
+    List<MoneyTransaction>? transactions,
+  }) =>
+      Budget(
+        name: name ?? this.name,
+        renewal: renewal ?? this.renewal,
+        size: size ?? this.size,
+        start: start ?? this.start,
+        transactions: transactions ?? this.transactions,
+      );
 
   /// Gets the number of days between the last renewal and the next one. In the
   /// case of monthly renewal, the value returned depends on the month in which
@@ -69,12 +90,16 @@ class Budget implements Comparable {
   /// which case returns the total over the entire history of the transactions).
   ///
   Money earned({
+    required Currency currency,
+    List<ExchangeRate>? exchangeRates,
     DateTime? from,
     DateTime? until,
   }) =>
       transactions.total(
+        currency: currency,
+        exchangeRates: exchangeRates,
         from: from,
-        incomeOrExpense: ExpenseOrIncome.income,
+        expenseOrIncome: ExpenseOrIncome.income,
         until: until,
       );
 
@@ -287,12 +312,16 @@ class Budget implements Comparable {
   /// which case returns the total over the entire history of the transactions).
   ///
   Money spent({
+    required Currency currency,
+    List<ExchangeRate>? exchangeRates,
     DateTime? from,
     DateTime? until,
   }) =>
       transactions.total(
+        currency: currency,
+        exchangeRates: exchangeRates,
         from: from,
-        incomeOrExpense: ExpenseOrIncome.expense,
+        expenseOrIncome: ExpenseOrIncome.expense,
         until: until,
       );
 

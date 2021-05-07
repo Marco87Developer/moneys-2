@@ -11,7 +11,7 @@ void main() {
 
     expect(
       Money.fromMap(map1),
-      Money(amount: 10000.55, currency: Currency.aud),
+      const Money(amount: 10000.55, currency: Currency.aud),
     );
   });
 
@@ -70,23 +70,23 @@ void main() {
     const Money money3 = Money(amount: 15000, currency: Currency.cad);
     const Money money4 = Money(amount: 5000, currency: Currency.gbp);
 
-    expect(money1 - money2, Money(amount: 5000, currency: Currency.cad));
+    expect(money1 - money2, const Money(amount: 5000, currency: Currency.cad));
     expect(() => money2 - money1, throwsFormatException);
-    expect(money1 - money3, Money(amount: 0, currency: Currency.cad));
+    expect(money1 - money3, const Money(amount: 0, currency: Currency.cad));
     expect(() => money1 - money4, throwsFormatException);
 
-    expect(money1 + money2, Money(amount: 25000, currency: Currency.cad));
-    expect(money1 + money3, Money(amount: 30000, currency: Currency.cad));
+    expect(money1 + money2, const Money(amount: 25000, currency: Currency.cad));
+    expect(money1 + money3, const Money(amount: 30000, currency: Currency.cad));
     expect(() => money1 + money4, throwsFormatException);
   });
 
   test('* and / operators', () {
     const Money money1 = Money(amount: 15000, currency: Currency.cad);
 
-    expect(money1 * 2, Money(amount: 30000, currency: Currency.cad));
-    expect(money1 * 2.5, Money(amount: 37500, currency: Currency.cad));
-    expect(money1 / 2, Money(amount: 7500, currency: Currency.cad));
-    expect(money1 / 2.5, Money(amount: 6000, currency: Currency.cad));
+    expect(money1 * 2, const Money(amount: 30000, currency: Currency.cad));
+    expect(money1 * 2.5, const Money(amount: 37500, currency: Currency.cad));
+    expect(money1 / 2, const Money(amount: 7500, currency: Currency.cad));
+    expect(money1 / 2.5, const Money(amount: 6000, currency: Currency.cad));
   });
 
   test('String to Money', () {
@@ -94,8 +94,9 @@ void main() {
     const String money2 = '1500 COP';
     const String money3 = '1500  COP';
 
-    expect(money1.toMoney(), Money(amount: 10500.87, currency: Currency.eur));
-    expect(money2.toMoney(), Money(amount: 1500, currency: Currency.cop));
+    expect(money1.toMoney(),
+        const Money(amount: 10500.87, currency: Currency.eur));
+    expect(money2.toMoney(), const Money(amount: 1500, currency: Currency.cop));
     expect(() => money3.toMoney(), throwsFormatException);
   });
 }

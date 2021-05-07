@@ -80,7 +80,7 @@ void main() {
       id: 'unique id',
       expenseOrIncome: ExpenseOrIncome.income,
       method: MoneyTransactionMethod.debitCard,
-      value: Money(
+      value: const Money(
         amount: 10000.5,
         currency: Currency.eur,
       ),
