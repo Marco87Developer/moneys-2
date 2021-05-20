@@ -4,7 +4,7 @@ import 'package:moneys/src/models/money.dart';
 
 void main() {
   test('Money.fromMap()', () {
-    const Map<String, dynamic> map1 = {
+    const Map<String, dynamic> map1 = <String, dynamic>{
       'amount': 10000.55,
       'currency': 'AUD',
     };

@@ -10,7 +10,7 @@ const String _currencyKey = 'currency';
 /// This class models a reference to a money.
 ///
 @immutable
-class Money implements Comparable {
+class Money implements Comparable<Money> {
   /// A reference to a money.
   ///
   const Money({
@@ -23,7 +23,7 @@ class Money implements Comparable {
   /// This can be useful for retrieving the instance from a database.
   ///
   Money.fromMap(Map<String, dynamic> map)
-      : amount = map[_amountKey],
+      : amount = double.parse('${map[_amountKey]}'),
         currency = '${map[_currencyKey]}'.toCurrency();
 
   /// The amount or, the value, of this money.
@@ -111,7 +111,7 @@ class Money implements Comparable {
   ///
   /// This can be useful for saving the instance in a database.
   ///
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         _amountKey: amount,
         _currencyKey: currency.string(),
       };

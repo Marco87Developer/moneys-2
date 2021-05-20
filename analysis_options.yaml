@@ -1,11 +1,11 @@
-include: package:pedantic/analysis_options.yaml
+include: package:lints/recommended.yaml
 
 analyzer:
-  enable-experiment:
-    - non-nullable
+  language:
+    strict-raw-types: true
   strong-mode:
-    - implicit-casts: false
-    - implicit-dynamic: false
+    implicit-casts: false
+    implicit-dynamic: false
 
 linter:
   rules:

@@ -4,7 +4,7 @@ import 'package:moneys/src/models/exchange_rate.dart';
 
 void main() {
   test('ExchangeRate.fromMap()', () {
-    final Map<String, dynamic> map = {
+    final Map<String, dynamic> map = <String, dynamic>{
       'dateTime': '2021-04-29T11:16:30.859',
       'from': Currency.eur.string(),
       'to': Currency.cop.string(),

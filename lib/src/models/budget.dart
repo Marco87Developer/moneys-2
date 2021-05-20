@@ -17,7 +17,7 @@ const String _transactionsKey = 'transactions';
 /// This class models a budget.
 ///
 @immutable
-class Budget implements Comparable {
+class Budget implements Comparable<Budget> {
   /// A budget.
   ///
   const Budget({
@@ -33,11 +33,12 @@ class Budget implements Comparable {
   /// This can be useful for retrieving the instance in a database.
   ///
   Budget.fromMap(Map<String, dynamic> map)
-      : name = map[_nameKey],
+      : name = '${map[_nameKey]}',
         renewal = '${map[_renewalKey]}'.toRenewal(),
         size = '${map[_sizeKey]}'.toMoney(),
-        start = DateTime.parse(map[_startKey]),
-        transactions = <MoneyTransaction>[].fromList(map[_transactionsKey]);
+        start = DateTime.parse('${map[_startKey]}'),
+        transactions = <MoneyTransaction>[]
+            .fromList(map[_transactionsKey] as List<dynamic>);
 
   /// The name that identifies this budget.
   final String name;
@@ -329,7 +330,7 @@ class Budget implements Comparable {
   ///
   /// This can be useful for saving the instance in a database.
   ///
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         _nameKey: name,
         _renewalKey: renewal.string(),
         _sizeKey: '$size',

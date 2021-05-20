@@ -10,7 +10,7 @@ const String _valueKey = 'value';
 /// This class models a reference to a money.
 ///
 @immutable
-class ExchangeRate implements Comparable {
+class ExchangeRate implements Comparable<ExchangeRate> {
   /// A reference exchange rate from [from] currency to [to] currency.
   ///
   const ExchangeRate({
@@ -25,10 +25,10 @@ class ExchangeRate implements Comparable {
   /// This can be useful for retrieving the instance from a database.
   ///
   ExchangeRate.fromMap(Map<String, dynamic> map)
-      : dateTime = DateTime.parse(map[_dateTimeKey]),
+      : dateTime = DateTime.parse('${map[_dateTimeKey]}'),
         from = '${map[_fromKey]}'.toCurrency(),
         to = '${map[_toKey]}'.toCurrency(),
-        value = map[_valueKey];
+        value = map[_valueKey] as double;
 
   /// Date and time in which the rate was retrieved.
   final DateTime dateTime;
@@ -62,7 +62,7 @@ class ExchangeRate implements Comparable {
   ///
   /// This can be useful for saving the instance in a database.
   ///
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         _dateTimeKey: dateTime.toIso8601String(),
         _fromKey: from.string(),
         _toKey: to.string(),

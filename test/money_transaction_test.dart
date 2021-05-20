@@ -7,7 +7,7 @@ import 'package:moneys/src/models/money_transaction.dart';
 
 void main() {
   test('Transaction.fromMap()', () {
-    const Map<String, dynamic> map = {
+    const Map<String, dynamic> map = <String, dynamic>{
       'budgetName': '',
       'dateTime': '2020-02-27T13:27:00.000',
       'description': 'Transaction from map',

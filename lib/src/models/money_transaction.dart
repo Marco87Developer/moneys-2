@@ -21,7 +21,7 @@ const String _valueKey = 'value';
 /// This class models a representation of a money transaction.
 ///
 @immutable
-class MoneyTransaction implements Comparable {
+class MoneyTransaction implements Comparable<MoneyTransaction> {
   /// Representation of a money transaction.
   ///
   const MoneyTransaction({
@@ -46,14 +46,15 @@ class MoneyTransaction implements Comparable {
   /// This can be useful for retrieving the instance in a database.
   ///
   MoneyTransaction.fromMap(Map<String, dynamic> map)
-      : budgetName = map[_budgetNameKey],
+      : budgetName = '${map[_budgetNameKey]}',
         dateTime = DateTime.parse('${map[_dateTimeKey]}'),
-        description = map[_descriptionKey],
-        id = map[_idKey],
+        description = '${map[_descriptionKey]}',
+        id = '${map[_idKey]}',
         expenseOrIncome = '${map[_expenseOrIncomeKey]}'.toExpenseOrIncome(),
         method = '${map[_methodKey]}'.toMoneyTransactionMethod(),
-        place = Place.fromMap(map[_placeKey]),
-        _tags = (map[_tagsKey] as List<dynamic>).map((e) => '$e').toList(),
+        place = Place.fromMap(map[_placeKey] as Map<String, dynamic>),
+        _tags =
+            (map[_tagsKey] as List<dynamic>).map((dynamic e) => '$e').toList(),
         value = '${map[_valueKey]}'.toMoney();
 
   /// The name of the budget associated with this transaction.
@@ -119,7 +120,7 @@ class MoneyTransaction implements Comparable {
   ///
   /// This can be useful for saving the instance in a database.
   ///
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => <String, dynamic>{
         _budgetNameKey: budgetName,
         _dateTimeKey: dateTime.toIso8601String(),
         _descriptionKey: description,
