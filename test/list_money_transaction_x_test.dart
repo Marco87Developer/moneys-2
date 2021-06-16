@@ -141,6 +141,9 @@ void main() {
       transaction2,
       transaction1,
     ];
+    final List<MoneyTransaction> list2 = <MoneyTransaction>[];
+
+    expect(list2.toListOfMaps(), <Map<String, dynamic>>[]);
 
     expect(
       list1.toListOfMaps(),

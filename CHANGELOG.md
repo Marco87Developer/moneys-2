@@ -1,3 +1,11 @@
+# 2.1.1
+
+<sup><sub>Release date: 2021-06-16.</sub></sup>
+
+* Added `emojiFlag` getter extension method for `Currency` enumeration.
+* Minimum Flutter version was updated to `2.2.2`.
+* Updated all the dependencies.
+
 # 2.1.0
 
 <sup><sub>Release date: 2021-05-20.</sub></sup>

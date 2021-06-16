@@ -48,9 +48,12 @@ extension ListMoneyTransactionX on List<MoneyTransaction> {
   List<Map<String, dynamic>> toListOfMaps() {
     sort();
 
-    return [
-      for (final MoneyTransaction transaction in this) transaction.toMap(),
-    ];
+    return isEmpty
+        ? []
+        : [
+            for (final MoneyTransaction transaction in this)
+              transaction.toMap(),
+          ];
   }
 
   /// Normalizes all values to the same [currency]. For this, [exchangeRates]

@@ -1,19 +1,19 @@
 name: moneys
 description: A set of classes useful for managing money, for save in a database and retrieve from it.
-version: 2.1.0
+version: 2.1.1
 repository: https://github.com/Marco87Developer/moneys
 homepage: https://marco87.dev
 
 environment:
-  sdk: ">=2.13.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=2.13.3 <3.0.0"
+  flutter: ">=2.2.2"
 
 dependencies:
   flutter:
     sdk: flutter
 
   geos: ^1.2.0
-  google_maps_flutter: ^2.0.5
+  google_maps_flutter: ^2.0.6
   intl: ^0.17.0
 
 dev_dependencies:

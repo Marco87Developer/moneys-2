@@ -1,4 +1,5 @@
-![Pub Version](https://img.shields.io/pub/v/moneys)
+![Pub Version](https://img.shields.io/pub/v/moneys?include_prereleases)
+![GitHub Top Language](https://img.shields.io/github/languages/top/Marco87Developer/moneys)
 
 # Moneys
 
@@ -27,6 +28,7 @@ Also, `convert()` method allows to convert a money of a currency into a money of
 In this enumeration are enumerated all the currencies of the world, according to [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html). For each currency, it make available some properties:
 
 * `alphabetic`. This is the alphabetic representation of the currency (for example, for the US dollar it will be “USD”, always in uppercase).
+* `emojiFlag`. This is the corresponding emoji flag to the currency.
 * `exponent`. This is the number of decimal digits that the currency’s representation requires. In the case that it does not apply, it returns `null`.
 * `isFund`. This indicates with a `bool` if the currency refers to a fund.
 * `name`. This is the complete name of the currency.

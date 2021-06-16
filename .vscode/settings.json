@@ -1,3 +1,13 @@
 {
-    "workbench.colorTheme": "Fresh Dark Color Theme"
+    "workbench.colorTheme": "Fresh Dark Color Theme",
+    "spellright.language": [
+        "en",
+        "es",
+        "it"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ]
 }
