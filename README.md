@@ -41,11 +41,15 @@ Thanks to the `StringToCurrencyX` extension (`on String`) makes available the `t
 
 This class stores the rate value in order to convert a money of a currency into a money of another one.
 
-## `MoneyTransaction` classes
+## `MoneyTransaction` class
 
 The `MoneyTransaction` class records the date, the value, and the transaction method used. It also has a *required* parameter for transaction identification: `id`. You should guarantee its uniqueness.
 
 `MoneyTransaction` is characterized according to whether it is income or expense (`ExpenseOrIncome` enumeration is used). The method used is specified by the value of the `MoneyTransactionMethod` enumeration. The frequency of renewal of a transaction is specified by the value of the `Renewal` enumeration.
+
+## `Product` class
+
+This class models a product. Describes the product with the following properties: the `brand`, the `category`, the `cost`, the `description`, the `id`, the `name`, the `origin` and the `price`.
 
 ### `List<MoneyTransaction>` extension methods
 

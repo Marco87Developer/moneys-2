@@ -1,3 +1,9 @@
+# 2.2.0
+
+<sup><sub>Release date: 2021-06-19.</sub></sup>
+
+* Added `Product` class.
+
 # 2.1.1
 
 <sup><sub>Release date: 2021-06-16.</sub></sup>
