@@ -1,3 +1,29 @@
+# 3.0.0
+
+<sup><sub>Release date: 2021-08-20.</sub></sup>
+
+*
+
+# 2.4.1
+
+<sup><sub>Release date: 2021-06-29.</sub></sup>
+
+* Added `List<Currency> transactionsCurrencies()` method to `Budget` class.
+
+# 2.4.0
+
+<sup><sub>Release date: 2021-06-29.</sub></sup>
+
+* Added `double availablePercent()` method to the `Budget` class.
+
+# 2.3.0
+
+<sup><sub>Release date: 2021-06-28.</sub></sup>
+
+* Overridden `ExchangeRate` `toString()` method.
+* Added `factory ExchangeRate.fromString(String string)` constructor.
+* Fixed a typo in the `ExchangeRate` documentation.
+
 # 2.2.0
 
 <sup><sub>Release date: 2021-06-19.</sub></sup>
@@ -53,7 +79,7 @@
 
 <sup><sub>Release date: 2021-05-06.</sub></sup>
 
-* In the `MoneyTransaction.fromMap(Map<String, dynamic> map)` constructor, the `List<dynamic> map['tags']` list is now casted `as List<String>`.
+* In the `MoneyTransaction.fromMap(Map<String, dynamic> map)` constructor, the `List<dynamic> map['tags']` list is now casted as `List<String>`.
 
 # 1.3.3
 
@@ -98,7 +124,7 @@
 <sup><sub>Release date: 2021-04-09.</sub></sup>
 
 * Updated dependencies.
-* **Breaking change.** Changed `TransactionMethod` enumeration name into `MoneyTransactionMethod` in order to contextualize the term “transaction”.
+* **Breaking change.** Changed `TransactionMethod` enum name into `MoneyTransactionMethod` in order to contextualize the term “transaction”.
 
 # 1.1.0
 
@@ -111,7 +137,7 @@
 
 <sup><sub>Release date: 2021-02-19.</sub></sup>
 
-* Changed the `string()` extension method for `PaymentMethod` enumeration.
+* Changed the `string()` extension method for `PaymentMethod` enum.
 
 # 1.0.0
 
@@ -127,6 +153,6 @@
 
 # 0.1.0-nullsafety.1
 
-<sup><sub>Release date: 2021-01-03.</sub></sup>
+<sup><sub>Release date: 2021-03-01.</sub></sup>
 
 * First pre-release.
