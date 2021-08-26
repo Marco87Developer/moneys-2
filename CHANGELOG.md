@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 3.0.0
 
 <sup><sub>Release date: 2021-08-20.</sub></sup>
@@ -30,6 +31,8 @@
 
 * Added `Product` class.
 
+=======
+>>>>>>> parent of 1632ea4 (Added Product class)
 # 2.1.1
 
 <sup><sub>Release date: 2021-06-16.</sub></sup>
