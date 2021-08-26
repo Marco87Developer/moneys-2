@@ -5,6 +5,9 @@ version: 3.0.0
 =======
 description: A set of classes useful for managing money, for save in a database and retrieve from it.
 version: 2.1.1
+<<<<<<< HEAD
+>>>>>>> parent of 1632ea4 (Added Product class)
+=======
 >>>>>>> parent of 1632ea4 (Added Product class)
 repository: https://github.com/Marco87Developer/moneys
 homepage: https://marco87.dev
@@ -21,6 +24,9 @@ dependencies:
 =======
 
   geos: ^1.2.0
+<<<<<<< HEAD
+>>>>>>> parent of 1632ea4 (Added Product class)
+=======
 >>>>>>> parent of 1632ea4 (Added Product class)
   google_maps_flutter: ^2.0.6
   helpers_plethora: ^2.0.6

@@ -74,7 +74,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "1.3.2"
+=======
+    version: "1.2.0"
+>>>>>>> parent of 1632ea4 (Added Product class)
 =======
     version: "1.2.0"
 >>>>>>> parent of 1632ea4 (Added Product class)
@@ -92,6 +96,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "2.1.1"
   helpers_plethora:
     dependency: "direct main"
@@ -100,6 +105,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
+=======
+    version: "2.0.4"
+>>>>>>> parent of 1632ea4 (Added Product class)
 =======
     version: "2.0.4"
 >>>>>>> parent of 1632ea4 (Added Product class)
