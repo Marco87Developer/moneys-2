@@ -2,6 +2,31 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:moneys/src/enums/currency.dart';
 
 void main() {
+  group('The transitive and the symmetric property', () {
+    test(
+      'The transitive property: if [b] = [a] and [c] = [b], then [c] = [a].',
+      () {
+        for (final Currency currency in Currency.values) {
+          final Currency a = currency;
+          final Currency b = a;
+          final Currency c = b;
+          expect(c, equals(a));
+        }
+      },
+    );
+    test(
+      'The symmetric property: if [a] = [b], then [b] = [a].',
+      () {
+        for (final Currency currency in Currency.values) {
+          final Currency a = currency;
+          final Currency b = currency;
+          expect(a, equals(b));
+          expect(b, equals(a));
+        }
+      },
+    );
+  });
+
   group('alphabeticCode', () {
     test('Is an all-uppercase 3-letter code.', () {
       expect(Currency.eur.alphabeticCode, equals('EUR'));
@@ -72,17 +97,6 @@ void main() {
     });
   });
 
-  group('string', () {
-    test('Is an all-uppercase 3-letter code equal to alphabeticCode.', () {
-      expect(Currency.eur.string, equals('EUR'));
-      expect(Currency.eur.string, equals(Currency.eur.alphabeticCode));
-      expect(Currency.usd.string, equals('USD'));
-      expect(Currency.usd.string, equals(Currency.usd.alphabeticCode));
-      expect(Currency.try_.string, equals('TRY'));
-      expect(Currency.try_.string, equals(Currency.try_.alphabeticCode));
-    });
-  });
-
   group('symbol', () {
     test('Is the symbol that represents the currency.', () {
       expect(Currency.eur.symbol, equals('€'));
@@ -92,7 +106,7 @@ void main() {
   });
 
   group('compareTo', () {
-    test('The comparation is done based on the string property.', () {
+    test('The comparation is done based on the name property.', () {
       expect(Currency.eur.compareTo(Currency.usd), isNegative);
       expect(Currency.eur.compareTo(Currency.eur), isZero);
       expect(Currency.usd.compareTo(Currency.eur), isPositive);
@@ -100,6 +114,43 @@ void main() {
   });
 
   group('toCurrency (StringToCurrencyExtension)', () {
+    test(
+      'If the string is not a valid representation of a value of [Currency],'
+      ' throws a [FormatException] with the not valid string in the message.',
+      () {
+        const String notValidString = 'NotValidString';
+        expect(
+          () => notValidString.toCurrency(),
+          throwsA(
+            isA<FormatException>().having(
+              (final e) => e.message,
+              'message',
+              contains(notValidString),
+            ),
+          ),
+        );
+        expect(
+          () => notValidString.toCurrency(),
+          throwsA(
+            isA<FormatException>().having(
+              (final e) => e.message,
+              'message',
+              contains('no valid'),
+            ),
+          ),
+        );
+        expect(
+          () => notValidString.toCurrency(),
+          throwsA(
+            isA<FormatException>().having(
+              (final e) => e.message,
+              'message',
+              contains('Currency'),
+            ),
+          ),
+        );
+      },
+    );
     test(
       'The string is a valid representation of a value of [Currency] if'
       ' coincides with the result of [alphabeticCode].',

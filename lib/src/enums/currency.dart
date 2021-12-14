@@ -2479,21 +2479,6 @@ extension CurrencyExtension on Currency {
     }
   }
 
-  /// The **corresponding string** to this [Currency] value.
-  ///
-  /// This string can be parsed back using `toCurrency` method of the [String]
-  /// extension.
-  ///
-  /// Examples:
-  ///
-  /// ```dart
-  /// Currency.eur.string // 'EUR'
-  /// Currency.usd.string // 'USD'
-  /// Currency.try_.string // 'TRY'
-  /// ```
-  ///
-  String get string => alphabeticCode;
-
   /// The **symbol** that represents this currency.
   ///
   /// If this currency does not have a symbol representing it, this string will
@@ -2876,7 +2861,7 @@ extension CurrencyExtension on Currency {
   /// **positive** value if this currency is ordered after [other], or **zero**
   /// if this currency and [other] are equivalent.
   ///
-  /// The comparison is made **based on the [string] property** of these two
+  /// The comparison is made **based on the [name] property** of these two
   /// currencies and is **not case sensitive**.
   ///
   /// Examples:
@@ -2888,7 +2873,7 @@ extension CurrencyExtension on Currency {
   /// ```
   ///
   int compareTo(final Currency other) =>
-      string.toLowerCase().compareTo(other.string.toLowerCase());
+      name.toLowerCase().compareTo(other.name.toLowerCase());
 }
 
 /// This extension adds functionality to the [String] class so that **a string
@@ -2908,7 +2893,7 @@ extension StringToCurrencyExtension on String {
   /// * The result of `Currency.string`.
   ///
   /// This method is **not case sensitive** and **does not take into account
-  /// leading and trailing whitespace**.
+  /// leading and trailing white spaces**.
   ///
   /// Examples:
   ///
@@ -2923,6 +2908,7 @@ extension StringToCurrencyExtension on String {
   /// ' EURO '.toCurrency() // Currency.eur
   /// '978'.toCurrency() // Currency.eur
   /// ' 978 '.toCurrency() // Currency.eur
+  /// 'NotValidString'.toCurrency() // Throws a [FormatException]
   /// ```
   ///
   Currency toCurrency() {
@@ -2930,9 +2916,8 @@ extension StringToCurrencyExtension on String {
     for (final Currency currency in Currency.values) {
       if (trimmedLowerCase == currency.alphabeticCode.toLowerCase() ||
           trimmedLowerCase == currency.denomination.toLowerCase() ||
-          trimmedLowerCase == currency.name ||
-          trimmedLowerCase == currency.numericCode ||
-          trimmedLowerCase == currency.string.toLowerCase()) {
+          trimmedLowerCase == currency.name.toLowerCase() ||
+          trimmedLowerCase == currency.numericCode) {
         return currency;
       }
     }
