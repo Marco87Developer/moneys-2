@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
-
-/// This is a **currency**.
+/// A **currency**.
 ///
 /// The currencies that can be represented are those defined by
 /// [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html).
@@ -573,25 +571,22 @@ enum Currency {
 extension CurrencyExtension on Currency {
   /// The **all-uppercase 3-letter code**.
   ///
-  /// The letters of this code are **.
-  ///
-  /// The *first two* letters of this code are the same as the
-  /// [ISO 3166](https://www.iso.org/iso-3166-country-codes.html) code of the
-  /// country of this currency and, where possible, the *third* letter
-  /// corresponds to the first letter of the name of this currency.
+  /// The first 2 letters of this code are the same as the
+  /// [ISO 3166](https://www.iso.org/iso-3166-country-codes.html) code for the
+  /// country name, and, where possible, the 3rd letter corresponds to the 1st
+  /// letter of this currency name.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.alphabeticCode; // 'EUR'
-  /// Currency.try_.alphabeticCode; // 'TRY'
+  /// Currency.eur.alphabeticCode // 'EUR'
+  /// Currency.usd.alphabeticCode // 'USD'
+  /// Currency.try_.alphabeticCode // 'TRY'
   /// ```
   ///
   String get alphabeticCode {
-    final String description = describeEnum(this);
-
     final RegExp regExp = RegExp('([A-Za-z])+');
-    final Iterable<Match> matches = regExp.allMatches(description);
+    final Iterable<Match> matches = regExp.allMatches(name);
 
     final StringBuffer onlyLettersBuffer = StringBuffer();
     for (final Match match in matches) {
@@ -601,39 +596,21 @@ extension CurrencyExtension on Currency {
     return onlyLettersBuffer.toString().toUpperCase();
   }
 
-  /// Returns **the value of the comparison** of this currency with the [other].
+  /// The **flag emoji of the country** this currency belongs to.
   ///
-  /// Uses the [compareTo] method of the [String] class to compare the string
-  /// returned by the [string] method of this value with that of the [other]
-  /// value.
-  ///
-  /// This method is *not case-sensitive*.
+  /// In case this currency does not belong to any country, this method returns
+  /// an empty string.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.compareTo(Currency.usd); // -1
-  /// Currency.eur.compareTo(Currency.eur); // 0
-  /// Currency.try_.compareTo(Currency.eur); // 1
+  /// Currency.eur.countryEmojiFlag // '🇪🇺'
+  /// Currency.usd.countryEmojiFlag // '🇺🇸'
+  /// Currency.try_.countryEmojiFlag // '🇹🇷'
+  /// Currency.xaf.countryEmojiFlag // ''
   /// ```
   ///
-  int compareTo(final Currency other) =>
-      string().toLowerCase().compareTo(other.string().toLowerCase());
-
-  /// The **country flag emoji** of this currency.
-  ///
-  /// Returns an *empty string* if this currency is not from any country.
-  ///
-  /// Examples:
-  ///
-  /// ```dart
-  /// Currency.eur.emojiFlag; // '🇪🇺'
-  /// Currency.try_.emojiFlag; // '🇹🇷'
-  /// Currency.zwl.emojiFlag; // '🇿🇼'
-  /// Currency.xcd.emojiFlag; // ''
-  /// ```
-  ///
-  String get emojiFlag {
+  String get countryEmojiFlag {
     switch (this) {
       case Currency.aed:
         return '🇦🇪';
@@ -996,13 +973,387 @@ extension CurrencyExtension on Currency {
     }
   }
 
+  /// The denomination (in English) of this currency.
+  ///
+  /// Examples:
+  ///
+  /// ```dart
+  /// Currency.eur.denomination // 'Euro'
+  /// Currency.usd.denomination // 'US Dollar'
+  /// Currency.try_.denomination // 'Turkish Lira'
+  /// ```
+  String get denomination {
+    switch (this) {
+      case Currency.aed:
+        return 'UAE Dirham';
+      case Currency.afn:
+        return 'Afghani';
+      case Currency.all:
+        return 'Lek';
+      case Currency.amd:
+        return 'Armenian Dram';
+      case Currency.ang:
+        return 'Netherlands Antillean Guilder';
+      case Currency.aoa:
+        return 'Kwanza';
+      case Currency.ars:
+        return 'Argentine Peso';
+      case Currency.aud:
+        return 'Australian Dollar';
+      case Currency.awg:
+        return 'Aruban Florin';
+      case Currency.azn:
+        return 'Azerbaijan Manat';
+      case Currency.bam:
+        return 'Convertible Mark';
+      case Currency.bbd:
+        return 'Barbados Dollar';
+      case Currency.bdt:
+        return 'Taka';
+      case Currency.bgn:
+        return 'Bulgarian Lev';
+      case Currency.bhd:
+        return 'Bahraini Dinar';
+      case Currency.bif:
+        return 'Burundi Franc';
+      case Currency.bmd:
+        return 'Bermudian Dollar';
+      case Currency.bnd:
+        return 'Brunei Dollar';
+      case Currency.bob:
+        return 'Boliviano';
+      case Currency.bov:
+        return 'Mvdol';
+      case Currency.brl:
+        return 'Brazilian Real';
+      case Currency.bsd:
+        return 'Bahamian Dollar';
+      case Currency.btn:
+        return 'Ngultrum';
+      case Currency.bwp:
+        return 'Pula';
+      case Currency.byn:
+        return 'Belarusian Ruble';
+      case Currency.bzd:
+        return 'Belize Dollar';
+      case Currency.cad:
+        return 'Canadian Dollar';
+      case Currency.cdf:
+        return 'Congolese Franc';
+      case Currency.che:
+        return 'WIR Euro';
+      case Currency.chf:
+        return 'Swiss Franc';
+      case Currency.chw:
+        return 'WIR Franc';
+      case Currency.clf:
+        return 'Unidad de Fomento';
+      case Currency.clp:
+        return 'Chilean Peso';
+      case Currency.cny:
+        return 'Yuan Renminbi';
+      case Currency.cop:
+        return 'Colombian Peso';
+      case Currency.cou:
+        return 'Unidad de Valor Real';
+      case Currency.crc:
+        return 'Costa Rican Colon';
+      case Currency.cuc:
+        return 'Peso Convertible';
+      case Currency.cup:
+        return 'Cuban Peso';
+      case Currency.cve:
+        return 'Cabo Verde Escudo';
+      case Currency.czk:
+        return 'Czech Koruna';
+      case Currency.djf:
+        return 'Djibouti Franc';
+      case Currency.dkk:
+        return 'Danish Krone';
+      case Currency.dop:
+        return 'Dominican Peso';
+      case Currency.dzd:
+        return 'Algerian Dinar';
+      case Currency.egp:
+        return 'Egyptian Pound';
+      case Currency.ern:
+        return 'Nakfa';
+      case Currency.etb:
+        return 'Ethiopian Birr';
+      case Currency.eur:
+        return 'Euro';
+      case Currency.fjd:
+        return 'Fiji Dollar';
+      case Currency.fkp:
+        return 'Falkland Islands Pound';
+      case Currency.gbp:
+        return 'Pound Sterling';
+      case Currency.gel:
+        return 'Lari';
+      case Currency.ghs:
+        return 'Ghana Cedi';
+      case Currency.gip:
+        return 'Gibraltar Pound';
+      case Currency.gmd:
+        return 'Dalasi';
+      case Currency.gnf:
+        return 'Guinean Franc';
+      case Currency.gtq:
+        return 'Quetzal';
+      case Currency.gyd:
+        return 'Guyana Dollar';
+      case Currency.hkd:
+        return 'Hong Kong Dollar';
+      case Currency.hnl:
+        return 'Lempira';
+      case Currency.hrk:
+        return 'Kuna';
+      case Currency.htg:
+        return 'Gourde';
+      case Currency.huf:
+        return 'Forint';
+      case Currency.idr:
+        return 'Rupiah';
+      case Currency.ils:
+        return 'New Israeli Sheqel';
+      case Currency.inr:
+        return 'Indian Rupee';
+      case Currency.iqd:
+        return 'Iraqi Dinar';
+      case Currency.irr:
+        return 'Iranian Rial';
+      case Currency.isk:
+        return 'Iceland Krona';
+      case Currency.jmd:
+        return 'Jamaican Dollar';
+      case Currency.jod:
+        return 'Jordanian Dinar';
+      case Currency.jpy:
+        return 'Yen';
+      case Currency.kes:
+        return 'Kenyan Shilling';
+      case Currency.kgs:
+        return 'Som';
+      case Currency.khr:
+        return 'Riel';
+      case Currency.kmf:
+        return 'Comorian Franc';
+      case Currency.kpw:
+        return 'North Korean Won';
+      case Currency.krw:
+        return 'Won';
+      case Currency.kwd:
+        return 'Kuwaiti Dinar';
+      case Currency.kyd:
+        return 'Cayman Islands Dollar';
+      case Currency.kzt:
+        return 'Tenge';
+      case Currency.lak:
+        return 'Lao Kip';
+      case Currency.lbp:
+        return 'Lebanese Pound';
+      case Currency.lkr:
+        return 'Sri Lanka Rupee';
+      case Currency.lrd:
+        return 'Liberian Dollar';
+      case Currency.lsl:
+        return 'Loti';
+      case Currency.lyd:
+        return 'Libyan Dinar';
+      case Currency.mad:
+        return 'Moroccan Dirham';
+      case Currency.mdl:
+        return 'Moldovan Leu';
+      case Currency.mga:
+        return 'Malagasy Ariary';
+      case Currency.mkd:
+        return 'Denar';
+      case Currency.mmk:
+        return 'Kyat';
+      case Currency.mnt:
+        return 'Tugrik';
+      case Currency.mop:
+        return 'Pataca';
+      case Currency.mru:
+        return 'Ouguiya';
+      case Currency.mur:
+        return 'Mauritius Rupee';
+      case Currency.mvr:
+        return 'Rufiyaa';
+      case Currency.mwk:
+        return 'Malawi Kwacha';
+      case Currency.mxn:
+        return 'Mexican Peso';
+      case Currency.mxv:
+        return 'Mexican Unidad de Inversion (UDI)';
+      case Currency.myr:
+        return 'Malaysian Ringgit';
+      case Currency.mzn:
+        return 'Mozambique Metical';
+      case Currency.nad:
+        return 'Namibia Dollar';
+      case Currency.ngn:
+        return 'Naira';
+      case Currency.nio:
+        return 'Cordoba Oro';
+      case Currency.nok:
+        return 'Norwegian Krone';
+      case Currency.npr:
+        return 'Nepalese Rupee';
+      case Currency.nzd:
+        return 'New Zealand Dollar';
+      case Currency.omr:
+        return 'Rial Omani';
+      case Currency.pab:
+        return 'Balboa';
+      case Currency.pen:
+        return 'Sol';
+      case Currency.pgk:
+        return 'Kina';
+      case Currency.php:
+        return 'Philippine Peso';
+      case Currency.pkr:
+        return 'Pakistan Rupee';
+      case Currency.pln:
+        return 'Zloty';
+      case Currency.pyg:
+        return 'Guarani';
+      case Currency.qar:
+        return 'Qatari Rial';
+      case Currency.ron:
+        return 'Romanian Leu';
+      case Currency.rsd:
+        return 'Serbian Dinar';
+      case Currency.rub:
+        return 'Russian Ruble';
+      case Currency.rwf:
+        return 'Rwanda Franc';
+      case Currency.sar:
+        return 'Saudi Riyal';
+      case Currency.sbd:
+        return 'Solomon Islands Dollar';
+      case Currency.scr:
+        return 'Seychelles Rupee';
+      case Currency.sdg:
+        return 'Sudanese Pound';
+      case Currency.sek:
+        return 'Swedish Krona';
+      case Currency.sgd:
+        return 'Singapore Dollar';
+      case Currency.shp:
+        return 'Saint Helena Pound';
+      case Currency.sll:
+        return 'Leone';
+      case Currency.sos:
+        return 'Somali Shilling';
+      case Currency.srd:
+        return 'Surinam Dollar';
+      case Currency.ssp:
+        return 'South Sudanese Pound';
+      case Currency.stn:
+        return 'Dobra';
+      case Currency.svc:
+        return 'El Salvador Colon';
+      case Currency.syp:
+        return 'Syrian Pound';
+      case Currency.szl:
+        return 'Lilangeni';
+      case Currency.thb:
+        return 'Baht';
+      case Currency.tjs:
+        return 'Somoni';
+      case Currency.tmt:
+        return 'Turkmenistan New Manat';
+      case Currency.tnd:
+        return 'Tunisian Dinar';
+      case Currency.top:
+        return 'Pa’anga';
+      case Currency.try_:
+        return 'Turkish Lira';
+      case Currency.ttd:
+        return 'Trinidad and Tobago Dollar';
+      case Currency.twd:
+        return 'New Taiwan Dollar';
+      case Currency.tzs:
+        return 'Tanzanian Shilling';
+      case Currency.uah:
+        return 'Hryvnia';
+      case Currency.ugx:
+        return 'Uganda Shilling';
+      case Currency.usd:
+        return 'US Dollar';
+      case Currency.usn:
+        return 'US Dollar (Next day)';
+      case Currency.uyi:
+        return 'Uruguay Peso en Unidades Indexadas (UI)';
+      case Currency.uyu:
+        return 'Peso Uruguayo';
+      case Currency.uyw:
+        return 'Unidad Previsional';
+      case Currency.uzs:
+        return 'Uzbekistan Sum';
+      case Currency.ves:
+        return 'Bolívar Soberano';
+      case Currency.vnd:
+        return 'Dong';
+      case Currency.vuv:
+        return 'Vatu';
+      case Currency.wst:
+        return 'Tala';
+      case Currency.xaf:
+        return 'CFA Franc BEAC';
+      case Currency.xag:
+        return 'Silver';
+      case Currency.xau:
+        return 'Gold';
+      case Currency.xba:
+        return 'Bond Markets Unit European Composite Unit (EURCO)';
+      case Currency.xbb:
+        return 'Bond Markets Unit European Monetary Unit (E.M.U.-6)';
+      case Currency.xbc:
+        return 'Bond Markets Unit European Unit of Account 9 (E.U.A.-9)';
+      case Currency.xbd:
+        return 'Bond Markets Unit European Unit of Account 17 (E.U.A.-17)';
+      case Currency.xcd:
+        return 'East Caribbean Dollar';
+      case Currency.xdr:
+        return 'SDR (Special Drawing Right)';
+      case Currency.xof:
+        return 'CFA Franc BCEAO';
+      case Currency.xpd:
+        return 'Palladium';
+      case Currency.xpf:
+        return 'CFP Franc';
+      case Currency.xpt:
+        return 'Platinum';
+      case Currency.xsu:
+        return 'Sucre';
+      case Currency.xts:
+        return 'Codes specifically reserved for testing purposes';
+      case Currency.xua:
+        return 'ADB Unit of Account';
+      case Currency.xxx:
+        return 'The codes assigned for transactions where no currency is'
+            ' involved';
+      case Currency.yer:
+        return 'Yemeni Rial';
+      case Currency.zar:
+        return 'Rand';
+      case Currency.zmw:
+        return 'Zambian Kwacha';
+      case Currency.zwl:
+        return 'Zimbabwe Dollar';
+    }
+  }
+
   /// Indicates whether this currency is actually **a fund or not**.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.isFund; // false
-  /// Currency.uyi.isFund; // true
+  /// Currency.eur.isFund // false
+  /// Currency.usd.isFund // false
+  /// Currency.usn.isFund // true
   /// ```
   ///
   bool get isFund {
@@ -1368,22 +1719,27 @@ extension CurrencyExtension on Currency {
     }
   }
 
-  /// The **relationship between the minor unit and the currency itself**, and
-  /// corresponds to the number of decimal places with which the value of money
-  /// in this currency is represented.
+  /// The **relationship between the minor unit and the currency itself** (i.e.,
+  /// whether it divides into 100 or 1000), and corresponds to the number of
+  /// decimal places with which a monetary value is represented in this
+  /// currency.
   ///
-  /// If this relationship does not apply for this currency, returns `null`.
+  /// If the value of this relationship is not present in the
+  /// [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html), returns
+  /// `null`.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.minorUnitsRelationship; // 2
-  /// Currency.try_.minorUnitsRelationship; // 2
-  /// Currency.xpd.minorUnitsRelationship; // null
-  /// Currency.xpf.minorUnitsRelationship; // 0
+  /// Currency.eur.minorUnitRelationship // 2
+  /// Currency.usd.minorUnitRelationship // 2
+  /// Currency.bif.minorUnitRelationship // 0
+  /// Currency.xag.minorUnitRelationship // null
+  /// Currency.xau.minorUnitRelationship // null
+  /// Currency.xba.minorUnitRelationship // null
   /// ```
   ///
-  int? get minorUnitsRelationship {
+  int? get minorUnitRelationship {
     switch (this) {
       case Currency.aed:
         return 2;
@@ -1743,399 +2099,21 @@ extension CurrencyExtension on Currency {
         return 2;
       case Currency.zwl:
         return 2;
-    }
-  }
-
-  /// The **name** (in English) of this currency.
-  ///
-  /// Examples:
-  ///
-  /// ```dart
-  /// Currency.eur.name; // 'Euro'
-  /// Currency.mur.name; // 'Mauritius Rupee'
-  /// Currency.xbd.name; // 'Bond Markets Unit European Unit of Account 17 (E.U.A.-17)'
-  /// ```
-  ///
-  String get name {
-    switch (this) {
-      case Currency.aed:
-        return 'UAE Dirham';
-      case Currency.afn:
-        return 'Afghani';
-      case Currency.all:
-        return 'Lek';
-      case Currency.amd:
-        return 'Armenian Dram';
-      case Currency.ang:
-        return 'Netherlands Antillean Guilder';
-      case Currency.aoa:
-        return 'Kwanza';
-      case Currency.ars:
-        return 'Argentine Peso';
-      case Currency.aud:
-        return 'Australian Dollar';
-      case Currency.awg:
-        return 'Aruban Florin';
-      case Currency.azn:
-        return 'Azerbaijan Manat';
-      case Currency.bam:
-        return 'Convertible Mark';
-      case Currency.bbd:
-        return 'Barbados Dollar';
-      case Currency.bdt:
-        return 'Taka';
-      case Currency.bgn:
-        return 'Bulgarian Lev';
-      case Currency.bhd:
-        return 'Bahraini Dinar';
-      case Currency.bif:
-        return 'Burundi Franc';
-      case Currency.bmd:
-        return 'Bermudian Dollar';
-      case Currency.bnd:
-        return 'Brunei Dollar';
-      case Currency.bob:
-        return 'Boliviano';
-      case Currency.bov:
-        return 'Mvdol';
-      case Currency.brl:
-        return 'Brazilian Real';
-      case Currency.bsd:
-        return 'Bahamian Dollar';
-      case Currency.btn:
-        return 'Ngultrum';
-      case Currency.bwp:
-        return 'Pula';
-      case Currency.byn:
-        return 'Belarusian Ruble';
-      case Currency.bzd:
-        return 'Belize Dollar';
-      case Currency.cad:
-        return 'Canadian Dollar';
-      case Currency.cdf:
-        return 'Congolese Franc';
-      case Currency.che:
-        return 'WIR Euro';
-      case Currency.chf:
-        return 'Swiss Franc';
-      case Currency.chw:
-        return 'WIR Franc';
-      case Currency.clf:
-        return 'Unidad de Fomento';
-      case Currency.clp:
-        return 'Chilean Peso';
-      case Currency.cny:
-        return 'Yuan Renminbi';
-      case Currency.cop:
-        return 'Colombian Peso';
-      case Currency.cou:
-        return 'Unidad de Valor Real';
-      case Currency.crc:
-        return 'Costa Rican Colon';
-      case Currency.cuc:
-        return 'Peso Convertible';
-      case Currency.cup:
-        return 'Cuban Peso';
-      case Currency.cve:
-        return 'Cabo Verde Escudo';
-      case Currency.czk:
-        return 'Czech Koruna';
-      case Currency.djf:
-        return 'Djibouti Franc';
-      case Currency.dkk:
-        return 'Danish Krone';
-      case Currency.dop:
-        return 'Dominican Peso';
-      case Currency.dzd:
-        return 'Algerian Dinar';
-      case Currency.egp:
-        return 'Egyptian Pound';
-      case Currency.ern:
-        return 'Nakfa';
-      case Currency.etb:
-        return 'Ethiopian Birr';
-      case Currency.eur:
-        return 'Euro';
-      case Currency.fjd:
-        return 'Fiji Dollar';
-      case Currency.fkp:
-        return 'Falkland Islands Pound';
-      case Currency.gbp:
-        return 'Pound Sterling';
-      case Currency.gel:
-        return 'Lari';
-      case Currency.ghs:
-        return 'Ghana Cedi';
-      case Currency.gip:
-        return 'Gibraltar Pound';
-      case Currency.gmd:
-        return 'Dalasi';
-      case Currency.gnf:
-        return 'Guinean Franc';
-      case Currency.gtq:
-        return 'Quetzal';
-      case Currency.gyd:
-        return 'Guyana Dollar';
-      case Currency.hkd:
-        return 'Hong Kong Dollar';
-      case Currency.hnl:
-        return 'Lempira';
-      case Currency.hrk:
-        return 'Kuna';
-      case Currency.htg:
-        return 'Gourde';
-      case Currency.huf:
-        return 'Forint';
-      case Currency.idr:
-        return 'Rupiah';
-      case Currency.ils:
-        return 'New Israeli Sheqel';
-      case Currency.inr:
-        return 'Indian Rupee';
-      case Currency.iqd:
-        return 'Iraqi Dinar';
-      case Currency.irr:
-        return 'Iranian Rial';
-      case Currency.isk:
-        return 'Iceland Krona';
-      case Currency.jmd:
-        return 'Jamaican Dollar';
-      case Currency.jod:
-        return 'Jordanian Dinar';
-      case Currency.jpy:
-        return 'Yen';
-      case Currency.kes:
-        return 'Kenyan Shilling';
-      case Currency.kgs:
-        return 'Som';
-      case Currency.khr:
-        return 'Riel';
-      case Currency.kmf:
-        return 'Comorian Franc';
-      case Currency.kpw:
-        return 'North Korean Won';
-      case Currency.krw:
-        return 'Won';
-      case Currency.kwd:
-        return 'Kuwaiti Dinar';
-      case Currency.kyd:
-        return 'Cayman Islands Dollar';
-      case Currency.kzt:
-        return 'Tenge';
-      case Currency.lak:
-        return 'Lao Kip';
-      case Currency.lbp:
-        return 'Lebanese Pound';
-      case Currency.lkr:
-        return 'Sri Lanka Rupee';
-      case Currency.lrd:
-        return 'Liberian Dollar';
-      case Currency.lsl:
-        return 'Loti';
-      case Currency.lyd:
-        return 'Libyan Dinar';
-      case Currency.mad:
-        return 'Moroccan Dirham';
-      case Currency.mdl:
-        return 'Moldovan Leu';
-      case Currency.mga:
-        return 'Malagasy Ariary';
-      case Currency.mkd:
-        return 'Denar';
-      case Currency.mmk:
-        return 'Kyat';
-      case Currency.mnt:
-        return 'Tugrik';
-      case Currency.mop:
-        return 'Pataca';
-      case Currency.mru:
-        return 'Ouguiya';
-      case Currency.mur:
-        return 'Mauritius Rupee';
-      case Currency.mvr:
-        return 'Rufiyaa';
-      case Currency.mwk:
-        return 'Malawi Kwacha';
-      case Currency.mxn:
-        return 'Mexican Peso';
-      case Currency.mxv:
-        return 'Mexican Unidad de Inversion (UDI)';
-      case Currency.myr:
-        return 'Malaysian Ringgit';
-      case Currency.mzn:
-        return 'Mozambique Metical';
-      case Currency.nad:
-        return 'Namibia Dollar';
-      case Currency.ngn:
-        return 'Naira';
-      case Currency.nio:
-        return 'Cordoba Oro';
-      case Currency.nok:
-        return 'Norwegian Krone';
-      case Currency.npr:
-        return 'Nepalese Rupee';
-      case Currency.nzd:
-        return 'New Zealand Dollar';
-      case Currency.omr:
-        return 'Rial Omani';
-      case Currency.pab:
-        return 'Balboa';
-      case Currency.pen:
-        return 'Sol';
-      case Currency.pgk:
-        return 'Kina';
-      case Currency.php:
-        return 'Philippine Peso';
-      case Currency.pkr:
-        return 'Pakistan Rupee';
-      case Currency.pln:
-        return 'Zloty';
-      case Currency.pyg:
-        return 'Guarani';
-      case Currency.qar:
-        return 'Qatari Rial';
-      case Currency.ron:
-        return 'Romanian Leu';
-      case Currency.rsd:
-        return 'Serbian Dinar';
-      case Currency.rub:
-        return 'Russian Ruble';
-      case Currency.rwf:
-        return 'Rwanda Franc';
-      case Currency.sar:
-        return 'Saudi Riyal';
-      case Currency.sbd:
-        return 'Solomon Islands Dollar';
-      case Currency.scr:
-        return 'Seychelles Rupee';
-      case Currency.sdg:
-        return 'Sudanese Pound';
-      case Currency.sek:
-        return 'Swedish Krona';
-      case Currency.sgd:
-        return 'Singapore Dollar';
-      case Currency.shp:
-        return 'Saint Helena Pound';
-      case Currency.sll:
-        return 'Leone';
-      case Currency.sos:
-        return 'Somali Shilling';
-      case Currency.srd:
-        return 'Surinam Dollar';
-      case Currency.ssp:
-        return 'South Sudanese Pound';
-      case Currency.stn:
-        return 'Dobra';
-      case Currency.svc:
-        return 'El Salvador Colon';
-      case Currency.syp:
-        return 'Syrian Pound';
-      case Currency.szl:
-        return 'Lilangeni';
-      case Currency.thb:
-        return 'Baht';
-      case Currency.tjs:
-        return 'Somoni';
-      case Currency.tmt:
-        return 'Turkmenistan New Manat';
-      case Currency.tnd:
-        return 'Tunisian Dinar';
-      case Currency.top:
-        return 'Pa’anga';
-      case Currency.try_:
-        return 'Turkish Lira';
-      case Currency.ttd:
-        return 'Trinidad and Tobago Dollar';
-      case Currency.twd:
-        return 'New Taiwan Dollar';
-      case Currency.tzs:
-        return 'Tanzanian Shilling';
-      case Currency.uah:
-        return 'Hryvnia';
-      case Currency.ugx:
-        return 'Uganda Shilling';
-      case Currency.usd:
-        return 'US Dollar';
-      case Currency.usn:
-        return 'US Dollar (Next day)';
-      case Currency.uyi:
-        return 'Uruguay Peso en Unidades Indexadas (UI)';
-      case Currency.uyu:
-        return 'Peso Uruguayo';
-      case Currency.uyw:
-        return 'Unidad Previsional';
-      case Currency.uzs:
-        return 'Uzbekistan Sum';
-      case Currency.ves:
-        return 'Bolívar Soberano';
-      case Currency.vnd:
-        return 'Dong';
-      case Currency.vuv:
-        return 'Vatu';
-      case Currency.wst:
-        return 'Tala';
-      case Currency.xaf:
-        return 'CFA Franc BEAC';
-      case Currency.xag:
-        return 'Silver';
-      case Currency.xau:
-        return 'Gold';
-      case Currency.xba:
-        return 'Bond Markets Unit European Composite Unit (EURCO)';
-      case Currency.xbb:
-        return 'Bond Markets Unit European Monetary Unit (E.M.U.-6)';
-      case Currency.xbc:
-        return 'Bond Markets Unit European Unit of Account 9 (E.U.A.-9)';
-      case Currency.xbd:
-        return 'Bond Markets Unit European Unit of Account 17 (E.U.A.-17)';
-      case Currency.xcd:
-        return 'East Caribbean Dollar';
-      case Currency.xdr:
-        return 'SDR (Special Drawing Right)';
-      case Currency.xof:
-        return 'CFA Franc BCEAO';
-      case Currency.xpd:
-        return 'Palladium';
-      case Currency.xpf:
-        return 'CFP Franc';
-      case Currency.xpt:
-        return 'Platinum';
-      case Currency.xsu:
-        return 'Sucre';
-      case Currency.xts:
-        return 'Codes specifically reserved for testing purposes';
-      case Currency.xua:
-        return 'ADB Unit of Account';
-      case Currency.xxx:
-        return 'The codes assigned for transactions where no currency is'
-            ' involved';
-      case Currency.yer:
-        return 'Yemeni Rial';
-      case Currency.zar:
-        return 'Rand';
-      case Currency.zmw:
-        return 'Zambian Kwacha';
-      case Currency.zwl:
-        return 'Zimbabwe Dollar';
     }
   }
 
   /// The **3-digit numeric code**.
   ///
-  /// Where possible, this code is the same as the
-  /// [ISO 3166](https://www.iso.org/iso-3166-country-codes.html) numeric
-  /// country code.
-  ///
-  /// This code, for example, is useful for clarifying which currency is being
-  /// referenced in a country that does not use the Latin alphabet.
+  /// This is useful when currency codes need to be understood in countries that
+  /// do not use Latin scripts and for computerized systems. Where possible, the
+  /// 3-digit numeric code is the same as the numeric country code.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.numericCode; // '978'
-  /// Currency.try_.numericCode; // '949'
-  /// Currency.xcd.numericCode; // '951'
-  /// Currency.zwl.numericCode; // '932'
+  /// Currency.aud.numericCode // '036'
+  /// Currency.eur.numericCode // '978'
+  /// Currency.usd.numericCode // '840'
   /// ```
   ///
   String get numericCode {
@@ -2501,36 +2479,32 @@ extension CurrencyExtension on Currency {
     }
   }
 
-  /// Returns the **corresponding string** of this [Currency] value.
+  /// The **corresponding string** to this [Currency] value.
   ///
-  /// The resulting string can be parsed back using `toCurrency` method of the
-  /// [StringToCurrencyExtension] extension of the [String] class.
+  /// This string can be parsed back using `toCurrency` method of the [String]
+  /// extension.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.eur.alphabeticCode; // 'EUR'
-  /// Currency.try_.alphabeticCode; // 'TRY'
-  /// for (final Currency currency in Currency.values) {
-  ///   currency.string() == currency.alphabeticCode; // true
-  /// }
+  /// Currency.eur.string // 'EUR'
+  /// Currency.usd.string // 'USD'
+  /// Currency.try_.string // 'TRY'
   /// ```
   ///
-  String string() => alphabeticCode;
+  String get string => alphabeticCode;
 
-  /// The **symbol that represents this currency**.
+  /// The **symbol** that represents this currency.
   ///
-  /// If this currency does not really have a symbol, this will be an *empty
-  /// string*.
+  /// If this currency does not have a symbol representing it, this string will
+  /// be an empty string.
   ///
   /// Examples:
   ///
   /// ```dart
-  /// Currency.cop.symbol; // r'$'
-  /// Currency.eur.symbol; // '€'
-  /// Currency.inr.symbol; // '₹'
-  /// Currency.pab.symbol; // 'B/.'
-  /// Currency.xua.symbol; // ''
+  /// Currency.eur.symbol // '€'
+  /// Currency.inr.symbol // '₹'
+  /// Currency.usd.symbol // '$'
   /// ```
   ///
   String get symbol {
@@ -2895,54 +2869,76 @@ extension CurrencyExtension on Currency {
         return r'$';
     }
   }
-}
 
-/// This extension adds features to the [String] class, in order to be able to
-/// **convert a string into its corresponding [Currency] value**.
-///
-extension StringToCurrencyExtension on String {
-  /// Returns the **[Currency] value corresponding to this string**.
+  /// Compares this [Currency] value to [other].
   ///
-  /// Throws a [FormatException] if this string is not a correct representation
-  /// of a [Currency] value.
+  /// Returns a **negative** value if this currency is ordered before [other], a
+  /// **positive** value if this currency is ordered after [other], or **zero**
+  /// if this currency and [other] are equivalent.
   ///
-  /// This string is a valid representation of this [Currency] value if it
-  /// contains one of the strings returned by the `string` method of the
-  /// [Currency] enum or coincides with the string returned by the
-  /// [describeEnum] method.
+  /// The comparison is made **based on the [string] property** of these two
+  /// currencies and is **not case sensitive**.
   ///
-  /// *Ignores* leading and trailing whitespace. Also, this method is
-  /// *case-insensitive*.
-  ///
-  /// Examples of accepted strings:
+  /// Examples:
   ///
   /// ```dart
-  /// 'EUR'.toCurrency(); // Currency.eur
-  /// ' EUR '.toCurrency(); // Currency.eur
-  /// 'EURO'.toCurrency(); // Currency.eur
-  /// ' EURO '.toCurrency(); // Currency.eur
-  /// 'Euro'.toCurrency(); // Currency.eur
-  /// ' Euro '.toCurrency(); // Currency.eur
-  /// 'euro'.toCurrency(); // Currency.eur
-  /// ' euro '.toCurrency(); // Currency.eur
-  /// '978'.toCurrency(); // Currency.eur
-  /// ' 978 '.toCurrency(); // Currency.eur
+  /// Currency.eur.compareTo(Currency.usd) // is negative
+  /// Currency.eur.compareTo(Currency.eur) // is zero
+  /// Currency.usd.compareTo(Currency.eur) // is positive
+  /// ```
+  ///
+  int compareTo(final Currency other) =>
+      string.toLowerCase().compareTo(other.string.toLowerCase());
+}
+
+/// This extension adds functionality to the [String] class so that **a string
+/// can be converted to the corresponding [Currency] value**.
+///
+extension StringToCurrencyExtension on String {
+  /// Returns **the value of [Currency] corresponding to this string**.
+  ///
+  /// Throws a [FormatException] if this string is not a valid representation of
+  /// a value of [Currency]. This string is a valid representation of a value of
+  /// [Currency] if it matches one of the following values:
+  ///
+  /// * The result of `Currency.alphabeticCode`.
+  /// * The result of `Currency.denomination`.
+  /// * The result of `Currency.name`.
+  /// * The result of `Currency.numericCode`.
+  /// * The result of `Currency.string`.
+  ///
+  /// This method is **not case sensitive** and **does not take into account
+  /// leading and trailing whitespace**.
+  ///
+  /// Examples:
+  ///
+  /// ```dart
+  /// 'eur'.toCurrency() // Currency.eur
+  /// 'EUR'.toCurrency() // Currency.eur
+  /// ' eur '.toCurrency() // Currency.eur
+  /// ' EUR '.toCurrency() // Currency.eur
+  /// 'euro'.toCurrency() // Currency.eur
+  /// 'EURO'.toCurrency() // Currency.eur
+  /// ' euro '.toCurrency() // Currency.eur
+  /// ' EURO '.toCurrency() // Currency.eur
+  /// '978'.toCurrency() // Currency.eur
+  /// ' 978 '.toCurrency() // Currency.eur
   /// ```
   ///
   Currency toCurrency() {
-    final String thisTrimmedLowerCase = trim().toLowerCase();
+    final String trimmedLowerCase = trim().toLowerCase();
     for (final Currency currency in Currency.values) {
-      if (thisTrimmedLowerCase == currency.alphabeticCode.toLowerCase() ||
-          thisTrimmedLowerCase == currency.name.toLowerCase() ||
-          thisTrimmedLowerCase == currency.numericCode ||
-          thisTrimmedLowerCase == describeEnum(currency).toLowerCase()) {
+      if (trimmedLowerCase == currency.alphabeticCode.toLowerCase() ||
+          trimmedLowerCase == currency.denomination.toLowerCase() ||
+          trimmedLowerCase == currency.name ||
+          trimmedLowerCase == currency.numericCode ||
+          trimmedLowerCase == currency.string.toLowerCase()) {
         return currency;
       }
     }
-
-    throw const FormatException(
-      'This string does not contains a valid (or unique) [Currency]'
-      ' representation.',
+    throw FormatException(
+      'This string (${this}) contains no valid (or unique) representation of a'
+      ' [Currency] value.',
     );
   }
 }
